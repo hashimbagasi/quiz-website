@@ -15,8 +15,6 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('الكل');
 
-  const popularQuizzes = useMemo(() => getPopularQuizzes(), []);
-
   const filteredQuizzes = useMemo(() => {
     let filtered = quizzes;
 
