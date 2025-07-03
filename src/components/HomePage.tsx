@@ -43,23 +43,48 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-content">
-          <h1>اختبر نفسك وتحدى أصحابك</h1>
-          <p>اكتشف اختبارات ترفيهية وثقافية متنوعة، وشارك نتائجك مع أصدقائك</p>
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              const el = document.getElementById('quizzes');
-              if (el) {
-                el.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
-          >
-            ابدأ الاختبارات
-          </button>
-        </div>
+      {/* Custom Hero Title & Description */}
+      <section
+        style={{
+          background: 'linear-gradient(90deg, #f72585 0%, #7209b7 100%)',
+          color: 'white',
+          padding: '48px 16px 32px 16px',
+          textAlign: 'center',
+          borderRadius: '0 0 32px 32px',
+          marginBottom: '32px',
+          boxShadow: '0 4px 24px rgba(114,9,183,0.08)'
+        }}
+      >
+        <h1
+          style={{
+            fontSize: '2.5rem',
+            fontWeight: 800,
+            marginBottom: '18px',
+            letterSpacing: '-1px',
+            lineHeight: 1.2,
+            textShadow: '0 2px 8px rgba(0,0,0,0.10)'
+          }}
+        >
+          جاهز تتحدى نفسك؟ جرب اختباراتنا وخلك الأسطورة!
+        </h1>
+        <p
+          style={{
+            fontSize: '1.25rem',
+            maxWidth: 600,
+            margin: '0 auto',
+            background: 'rgba(255,255,255,0.10)',
+            borderRadius: '16px',
+            padding: '18px 20px',
+            fontWeight: 500,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+            color: '#fff',
+            lineHeight: 1.7
+          }}
+        >
+          اختبارات ترفيهية بتعابير ولهجاتنا، من اختبار الذكاء لاختبارات اللهجات.<br/>
+          نتيجتك تقدر تشاركها مع أصحابك، وتضحك معهم على النتيجة 😄<br/>
+          بسيطة، سريعة، ومجانية!
+        </p>
       </section>
 
       {/* All Quizzes Section */}
