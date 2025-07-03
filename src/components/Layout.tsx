@@ -252,6 +252,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                       cursor: 'pointer',
                       transition: 'all 0.2s',
                       display: 'inline-block',
+                      fontFamily: 'inherit',
                     }}
                     onClick={handleQuizzesClick}
                   >
@@ -277,6 +278,25 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     عن الموقع
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    className="navbar-link"
+                    to="/blog"
+                    style={{
+                      color: isActive('/blog') ? '#F72585' : '#1A1A1A',
+                      textDecoration: 'none',
+                      fontWeight: isActive('/blog') ? '700' : '500',
+                      fontSize: '1.1rem',
+                      padding: '4px 12px',
+                      borderRadius: '20px',
+                      background: isActive('/blog') ? 'rgba(247,37,133,0.08)' : 'transparent',
+                      transition: 'all 0.2s',
+                      display: 'inline-block',
+                    }}
+                  >
+                    المدونة
+                  </Link>
+                </li>
               </ul>
             </nav>
           </div>
@@ -287,6 +307,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <button className="mobile-menu-link" onClick={() => { setMenuOpen(false); navigate('/'); }}>الرئيسية</button>
             <button className="mobile-menu-link" onClick={() => { setMenuOpen(false); handleQuizzesClick(); }}>الاختبارات</button>
             <button className="mobile-menu-link" onClick={() => { setMenuOpen(false); navigate('/about'); }}>عن الموقع</button>
+            <button className="mobile-menu-link" onClick={() => { setMenuOpen(false); navigate('/blog'); }}>المدونة</button>
             <button className="mobile-menu-link" style={{color:'#888',fontSize:'1rem',marginTop:'30px'}} onClick={() => setMenuOpen(false)}>إغلاق ✕</button>
           </div>
         )}

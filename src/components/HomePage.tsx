@@ -4,6 +4,7 @@ import { Quiz, getPopularQuizzes, getQuizzesByCategory } from '../data/quizzes';
 import QuizCard from './QuizCard';
 import SearchAndFilter from './SearchAndFilter';
 import AdsensePlaceholder from './AdsensePlaceholder';
+import { blogPosts, BlogPost } from '../data/blogPosts';
 
 interface HomePageProps {
   quizzes: Quiz[];
@@ -171,29 +172,80 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
 
       <AdsensePlaceholder height={120} />
 
-      {/* Popular Quizzes Section */}
+      {/* Blog Section */}
       <section className="container" style={{ marginTop: '60px' }}>
-        <h2 style={{ 
-          textAlign: 'center', 
-          marginBottom: '40px', 
+        <h2 style={{
+          textAlign: 'center',
+          marginBottom: '40px',
           color: '#1A1A1A',
           fontSize: '2rem',
           fontWeight: '600'
         }}>
-          🔥 أشهر الاختبارات
+          📚 المدونة
         </h2>
-        <div className="quiz-grid">
-          {popularQuizzes.map((quiz) => (
-            <QuizCard
-              key={quiz.id}
-              quiz={quiz}
-              onClick={() => handleQuizClick(quiz.id)}
-            />
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '32px',
+          marginBottom: '32px'
+        }}>
+          {blogPosts.slice(0, 3).map((post: BlogPost) => (
+            <div key={post.id} style={{
+              background: '#fff',
+              borderRadius: '16px',
+              boxShadow: '0 2px 12px rgba(164,80,139,0.08)',
+              padding: '28px 24px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              minHeight: '220px',
+              transition: 'transform 0.2s, box-shadow 0.2s',
+            }}>
+              <div>
+                <div style={{ color: '#F72585', fontWeight: 700, fontSize: '1.1rem', marginBottom: 8 }}>{post.category}</div>
+                <a href={`/blog/${post.id}`} style={{ textDecoration: 'none', color: '#1A1A1A' }}>
+                  <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: 10, lineHeight: 1.4 }}>{post.title}</h3>
+                </a>
+                <div style={{ color: '#888', fontSize: '0.9rem', marginBottom: 10 }}>
+                  {new Date(post.date).toLocaleDateString('ar-SA')} • {post.readTime}
+                </div>
+                <div style={{ color: '#666', fontSize: '1rem', marginBottom: 12 }}>{post.excerpt}</div>
+              </div>
+              <a href={`/blog/${post.id}`} style={{
+                background: 'linear-gradient(135deg, #F72585, #7209B7)',
+                color: 'white',
+                padding: '8px 18px',
+                borderRadius: '20px',
+                textDecoration: 'none',
+                fontWeight: 600,
+                fontSize: '1rem',
+                alignSelf: 'flex-start',
+                marginTop: 'auto',
+                transition: 'background 0.2s, transform 0.2s'
+              }}
+                onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+              >اقرأ المزيد →</a>
+            </div>
           ))}
         </div>
+        <div style={{ textAlign: 'center', marginTop: 10 }}>
+          <a href="/blog" style={{
+            background: 'linear-gradient(135deg, #F72585, #7209B7)',
+            color: 'white',
+            padding: '10px 32px',
+            borderRadius: '24px',
+            textDecoration: 'none',
+            fontWeight: 700,
+            fontSize: '1.1rem',
+            boxShadow: '0 2px 8px rgba(164,80,139,0.10)',
+            transition: 'background 0.2s, transform 0.2s'
+          }}
+            onMouseOver={e => e.currentTarget.style.transform = 'scale(1.06)'}
+            onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+          >عرض كل المقالات</a>
+        </div>
       </section>
-
-      <AdsensePlaceholder height={120} />
 
       {/* Features Section */}
       <section style={{ 
