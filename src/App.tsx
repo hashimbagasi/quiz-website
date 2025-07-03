@@ -4,6 +4,7 @@ import { quizzes } from './data/quizzes';
 import Layout from './components/Layout';
 import HomePage from './components/HomePage';
 import QuizPage from './components/QuizPage';
+import NotFound from './components/NotFound';
 import './styles/global.css';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage quizzes={quizzes} />} />
           <Route path="/quiz/:id" element={<QuizPage quizzes={quizzes} />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </Router>
