@@ -11,6 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [quizzesActive, setQuizzesActive] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // مراقبة ظهور قسم #quizzes في الشاشة
   useEffect(() => {
@@ -102,8 +103,74 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         top: 0,
         zIndex: 100
       }}>
+        {/* تحسين تجاوب الهيدر للشاشات الصغيرة + منيو هامبرجر */}
+        <style>{`
+          @media (max-width: 500px) {
+            .header-flex {
+              flex-direction: column !important;
+              gap: 8px !important;
+              align-items: stretch !important;
+            }
+            .navbar-logo {
+              font-size: 1.1rem !important;
+              max-width: 100px !important;
+              text-align: center !important;
+            }
+            .navbar-links {
+              display: none !important;
+            }
+            .hamburger {
+              display: flex !important;
+            }
+          }
+          .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 102;
+          }
+          .hamburger span {
+            display: block;
+            width: 28px;
+            height: 4px;
+            margin: 4px 0;
+            background: #F72585;
+            border-radius: 2px;
+            transition: 0.3s;
+          }
+          .mobile-menu-overlay {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255,255,255,0.98);
+            z-index: 101;
+            transition: opacity 0.3s;
+          }
+          .mobile-menu-link {
+            font-size: 1.3rem;
+            color: #F72585;
+            margin: 18px 0;
+            text-decoration: none;
+            font-weight: 700;
+            background: none;
+            border: none;
+            cursor: pointer;
+          }
+        `}</style>
         <div className="container">
-          <div style={{ 
+          <div className="header-flex" style={{ 
             display: 'flex', 
             justifyContent: 'space-between', 
             alignItems: 'center',
@@ -117,7 +184,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               minWidth: 0
             }}>
               <span style={{ fontSize: '2rem' }}>🧠</span>
-              <h1 style={{ 
+              <h1 className="navbar-logo" style={{ 
                 fontSize: '1.5rem', 
                 fontWeight: '700', 
                 color: '#F72585',
@@ -129,8 +196,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 اختباراتي
               </h1>
             </div>
+            {/* زر الهامبرجر يظهر فقط في الشاشات الصغيرة */}
+            <button className="hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
             <nav style={{ flex: 1, minWidth: 0, display: 'flex', justifyContent: 'flex-end' }}>
-              <ul style={{ 
+              <ul className="navbar-links" style={{ 
                 display: 'flex', 
                 listStyle: 'none', 
                 gap: '30px',
@@ -141,6 +214,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               }}>
                 <li>
                   <Link
+                    className="navbar-link"
                     to="/"
                     style={{
                       color: isActive('/') ? '#F72585' : '#1A1A1A',
@@ -165,6 +239,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </li>
                 <li>
                   <button
+                    className="navbar-link"
                     style={{
                       background: isActive('/#quizzes') ? 'rgba(247,37,133,0.08)' : 'transparent',
                       border: 'none',
@@ -185,6 +260,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </li>
                 <li>
                   <Link
+                    className="navbar-link"
                     to="/about"
                     style={{
                       color: isActive('/about') ? '#F72585' : '#1A1A1A',
@@ -205,6 +281,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </nav>
           </div>
         </div>
+        {/* قائمة Overlay تظهر عند فتح المنيو في الشاشات الصغيرة */}
+        {menuOpen && (
+          <div className="mobile-menu-overlay" onClick={() => setMenuOpen(false)}>
+            <button className="mobile-menu-link" onClick={() => { setMenuOpen(false); navigate('/'); }}>الرئيسية</button>
+            <button className="mobile-menu-link" onClick={() => { setMenuOpen(false); handleQuizzesClick(); }}>الاختبارات</button>
+            <button className="mobile-menu-link" onClick={() => { setMenuOpen(false); navigate('/about'); }}>عن الموقع</button>
+            <button className="mobile-menu-link" style={{color:'#888',fontSize:'1rem',marginTop:'30px'}} onClick={() => setMenuOpen(false)}>إغلاق ✕</button>
+          </div>
+        )}
       </header>
 
       {/* Main Content */}

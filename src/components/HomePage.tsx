@@ -46,14 +46,17 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
       {/* Custom Hero Title & Description */}
       <section
         style={{
-          background: 'linear-gradient(90deg, #f72585 0%, #7209b7 100%)',
+          background: 'linear-gradient(135deg, #a4508b 0%, #f7666f 100%)',
           color: 'white',
           padding: '48px 16px 32px 16px',
           textAlign: 'center',
           borderRadius: '0 0 32px 32px',
           marginBottom: '32px',
-          boxShadow: '0 4px 24px rgba(114,9,183,0.08)'
+          boxShadow: '0 4px 24px rgba(114,9,183,0.08)',
+          position: 'relative',
+          overflow: 'hidden',
         }}
+        className="fade-in"
       >
         <h1
           style={{
@@ -65,7 +68,7 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
             textShadow: '0 2px 8px rgba(0,0,0,0.10)'
           }}
         >
-          جاهز تتحدى نفسك؟ جرب اختباراتنا وخلك الأسطورة!
+          <span role="img" aria-label="star">⭐</span> جاهز تتحدى نفسك؟ جرب اختباراتنا وخلك الأسطورة!
         </h1>
         <p
           style={{
@@ -86,6 +89,44 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
           بسيطة، سريعة، ومجانية!
         </p>
       </section>
+      <style>{`
+        .fade-in {
+          opacity: 0;
+          transform: translateY(40px);
+          animation: fadeInUp 1s 0.2s forwards;
+        }
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+        .quiz-card {
+          transition: transform 0.2s, box-shadow 0.2s;
+          box-shadow: 0 2px 12px rgba(164,80,139,0.08);
+          border-radius: 18px !important;
+        }
+        .quiz-card:hover {
+          transform: translateY(-8px) scale(1.04);
+          box-shadow: 0 8px 32px rgba(247,102,111,0.18);
+        }
+        .btn-primary {
+          background: linear-gradient(90deg, #a4508b 0%, #f7666f 100%);
+          color: #fff;
+          border: none;
+          border-radius: 24px;
+          padding: 12px 32px;
+          font-size: 1.1rem;
+          font-weight: 700;
+          box-shadow: 0 2px 8px rgba(164,80,139,0.10);
+          transition: background 0.2s, transform 0.2s;
+          cursor: pointer;
+        }
+        .btn-primary:hover {
+          background: linear-gradient(90deg, #f7666f 0%, #a4508b 100%);
+          transform: scale(1.06);
+        }
+      `}</style>
 
       {/* All Quizzes Section */}
       <section id="quizzes" className="container" style={{ marginTop: '80px', marginBottom: '80px' }}>

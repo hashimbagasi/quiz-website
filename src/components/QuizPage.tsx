@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Quiz, getSimilarQuizzes, getHejaziResultMessage, getNajdiResultMessage } from '../data/quizzes';
 import QuizCard from './QuizCard';
@@ -19,6 +19,9 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
   const [userName, setUserName] = useState('');
   const [nameSubmitted, setNameSubmitted] = useState(false);
   const [nameError, setNameError] = useState('');
+  const [answerStatus, setAnswerStatus] = useState<'correct' | 'wrong' | null>(null);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const questionRef = useRef<HTMLDivElement>(null);
 
   // عند تحميل الصفحة، جلب الاسم من localStorage إذا كان موجود
   React.useEffect(() => {
@@ -36,6 +39,15 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
       setSimilarQuizzes(getSimilarQuizzes(id));
     }
   }, [id, quizzes]);
+
+  useEffect(() => {
+    // أنيميشن ظهور السؤال عند تغييره
+    if (questionRef.current) {
+      questionRef.current.classList.remove('fade-in-question');
+      void questionRef.current.offsetWidth; // إعادة تشغيل الأنيميشن
+      questionRef.current.classList.add('fade-in-question');
+    }
+  }, [currentQuestionIndex]);
 
   if (!quiz) {
     return (
@@ -87,16 +99,19 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
   const progress = ((currentQuestionIndex + 1) / quiz.questions.length) * 100;
 
   const handleAnswerSelect = (answerIndex: number) => {
-    const newAnswers = [...selectedAnswers];
-    newAnswers[currentQuestionIndex] = answerIndex;
-    setSelectedAnswers(newAnswers);
+    if (selectedOption !== null) return; // منع اختيار أكثر من خيار
+    setSelectedOption(answerIndex);
+    const isCorrect = answerIndex === currentQuestion.correctAnswer;
+    setAnswerStatus(isCorrect ? 'correct' : 'wrong');
     setTimeout(() => {
+      setAnswerStatus(null);
+      setSelectedOption(null);
       if (currentQuestionIndex < quiz.questions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       } else {
         setShowResults(true);
       }
-    }, 1000);
+    }, 1100);
   };
 
   const calculateResults = () => {
@@ -291,40 +306,92 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
     <div className="container">
       <div className="quiz-container">
         <AdsensePlaceholder height={90} />
-        <div className="quiz-header">
-          <h1 style={{ marginBottom: '10px', color: '#1A1A1A' }}>{quiz.title}</h1>
-          <p style={{ color: '#666', marginBottom: '20px' }}>{quiz.description}</p>
-          
-          <div className="quiz-progress">
-            <div 
-              className="quiz-progress-bar" 
-              style={{ width: `${progress}%` }}
-            ></div>
+        <div ref={questionRef} className="fade-in-question" style={{ marginBottom: 40 }}>
+          <div style={{ fontSize: '1.2rem', fontWeight: 700, color: '#F72585', marginBottom: 16 }}>
+            سؤال {currentQuestionIndex + 1} من {quiz.questions.length}
           </div>
-          
-          <p style={{ color: '#666', fontSize: '0.9rem' }}>
-            السؤال {currentQuestionIndex + 1} من {quiz.questions.length}
-          </p>
-        </div>
-
-        <div className="question-container slide-in">
-          <h2 className="question-text">{currentQuestion.text}</h2>
-          
-          <div className="options-container">
-            {currentQuestion.options.map((option, index) => (
-              <button
-                key={index}
-                className={`option-btn ${
-                  selectedAnswers[currentQuestionIndex] === index ? 'selected' : ''
-                }`}
-                onClick={() => handleAnswerSelect(index)}
-                disabled={selectedAnswers[currentQuestionIndex] !== undefined}
-              >
-                {option}
-              </button>
-            ))}
+          <div style={{ fontSize: '1.4rem', fontWeight: 600, marginBottom: 24, color: '#1A1A1A' }}>
+            {currentQuestion.text}
+          </div>
+          <div className="options-list">
+            {currentQuestion.options.map((option, idx) => {
+              let optionClass = 'option-btn';
+              if (selectedOption !== null) {
+                if (idx === selectedOption) {
+                  optionClass += answerStatus === 'correct' ? ' correct' : ' wrong';
+                }
+                if (idx === currentQuestion.correctAnswer && answerStatus === 'wrong') {
+                  optionClass += ' correct';
+                }
+              }
+              return (
+                <button
+                  key={idx}
+                  className={optionClass}
+                  onClick={() => handleAnswerSelect(idx)}
+                  disabled={selectedOption !== null}
+                  style={{
+                    margin: '12px 0',
+                    width: '100%',
+                    fontSize: '1.1rem',
+                    fontWeight: 500,
+                    borderRadius: 16,
+                    padding: '16px 12px',
+                    border: 'none',
+                    boxShadow: '0 2px 8px rgba(164,80,139,0.08)',
+                    background: '#fff',
+                    color: '#1A1A1A',
+                    cursor: selectedOption === null ? 'pointer' : 'default',
+                    position: 'relative',
+                    transition: 'background 0.2s, color 0.2s, transform 0.2s',
+                    outline: 'none',
+                    ...(selectedOption !== null && idx === selectedOption && answerStatus === 'wrong' ? { animation: 'shake 0.4s' } : {})
+                  }}
+                >
+                  {option}
+                  {selectedOption !== null && idx === selectedOption && answerStatus === 'correct' && (
+                    <span style={{ marginRight: 10, color: '#43a047', fontSize: '1.3em' }}>✔️</span>
+                  )}
+                  {selectedOption !== null && idx === selectedOption && answerStatus === 'wrong' && (
+                    <span style={{ marginRight: 10, color: '#e53935', fontSize: '1.3em' }}>❌</span>
+                  )}
+                  {selectedOption !== null && idx === currentQuestion.correctAnswer && answerStatus === 'wrong' && (
+                    <span style={{ marginRight: 10, color: '#43a047', fontSize: '1.3em' }}>✔️</span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
+        <style>{`
+          .fade-in-question {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUpQ 0.7s forwards;
+          }
+          @keyframes fadeInUpQ {
+            to {
+              opacity: 1;
+              transform: none;
+            }
+          }
+          .option-btn.correct {
+            background: linear-gradient(90deg, #a8e063 0%, #56ab2f 100%) !important;
+            color: #fff !important;
+            font-weight: 700;
+          }
+          .option-btn.wrong {
+            background: linear-gradient(90deg, #f85032 0%, #e73827 100%) !important;
+            color: #fff !important;
+            font-weight: 700;
+          }
+          @keyframes shake {
+            10%, 90% { transform: translateX(-2px); }
+            20%, 80% { transform: translateX(4px); }
+            30%, 50%, 70% { transform: translateX(-8px); }
+            40%, 60% { transform: translateX(8px); }
+          }
+        `}</style>
       </div>
     </div>
   );
