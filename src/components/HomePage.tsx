@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Quiz, getPopularQuizzes, getQuizzesByCategory } from '../data/quizzes';
+import { Quiz, getQuizzesByCategory } from '../data/quizzes';
 import QuizCard from './QuizCard';
 import SearchAndFilter from './SearchAndFilter';
 import AdsensePlaceholder from './AdsensePlaceholder';
