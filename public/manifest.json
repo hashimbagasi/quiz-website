@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "اختباراتي",
+  "name": "اختباراتي - موقع الاختبارات الترفيهية",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,9 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#F72585",
+  "background_color": "#FAFAFA",
+  "description": "موقع اختبارات ترفيهية وثقافية متنوعة - اختبر نفسك وتحدى أصحابك",
+  "lang": "ar",
+  "dir": "rtl"
 }

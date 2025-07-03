@@ -1,0 +1,495 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #FAFAFA;
+  color: #1A1A1A;
+  line-height: 1.6;
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #F72585 0%, #7209B7 100%);
+  color: white;
+  text-align: center;
+  padding: 120px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 32px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: #F72585;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #E91E63;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(247, 37, 133, 0.3);
+}
+
+.btn-secondary {
+  background-color: white;
+  color: #F72585;
+  border: 2px solid #F72585;
+}
+
+.btn-secondary:hover {
+  background-color: #F72585;
+  color: white;
+}
+
+/* Quiz Cards */
+.quiz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin: 40px 0;
+}
+
+.quiz-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.quiz-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #F72585, #7209B7);
+}
+
+.quiz-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+.quiz-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.quiz-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 8px;
+}
+
+.quiz-description {
+  color: #666;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.quiz-category {
+  display: inline-block;
+  padding: 4px 12px;
+  background-color: #F0F0F0;
+  color: #666;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.quiz-popularity {
+  color: #F72585;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Search Section */
+.search-section {
+  background: white;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.search-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 16px 24px;
+  border: 2px solid #E0E0E0;
+  border-radius: 32px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #F72585;
+  box-shadow: 0 0 0 3px rgba(247, 37, 133, 0.1);
+}
+
+/* Category Filter */
+.category-filter {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  padding: 8px 20px;
+  border: 2px solid #F72585;
+  background: transparent;
+  color: #F72585;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.category-btn.active,
+.category-btn:hover {
+  background: #F72585;
+  color: white;
+}
+
+/* Quiz Page */
+.quiz-container {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  margin: 40px auto;
+  max-width: 800px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.quiz-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.quiz-progress {
+  width: 100%;
+  height: 8px;
+  background: #E0E0E0;
+  border-radius: 4px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.quiz-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #F72585, #7209B7);
+  transition: width 0.3s ease;
+}
+
+.question-container {
+  margin-bottom: 30px;
+}
+
+.question-text {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.options-container {
+  display: grid;
+  gap: 12px;
+}
+
+.option-btn {
+  padding: 16px 20px;
+  border: 2px solid #E0E0E0;
+  background: white;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: right;
+  font-size: 1rem;
+  color: #333;
+}
+
+.option-btn:hover {
+  border-color: #F72585;
+  background: #FFF5F8;
+}
+
+.option-btn.selected {
+  border-color: #F72585;
+  background: #F72585;
+  color: white;
+}
+
+.option-btn.correct {
+  border-color: #4CAF50;
+  background: #4CAF50;
+  color: white;
+}
+
+.option-btn.incorrect {
+  border-color: #F44336;
+  background: #F44336;
+  color: white;
+}
+
+/* Results */
+.results-container {
+  text-align: center;
+  padding: 40px;
+}
+
+.score-display {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #F72585;
+  margin-bottom: 20px;
+}
+
+.result-message {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.share-section {
+  margin: 30px 0;
+  padding: 20px;
+  background: #F8F9FA;
+  border-radius: 12px;
+}
+
+.share-btn {
+  background: #25D366;
+  color: white;
+  margin: 0 8px;
+}
+
+.share-btn:hover {
+  background: #128C7E;
+}
+
+/* Similar Quizzes */
+.similar-quizzes {
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid #E0E0E0;
+}
+
+.similar-quizzes h3 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #1A1A1A;
+}
+
+/* Footer */
+.footer {
+  background: #F2F2F2;
+  padding: 40px 20px;
+  text-align: center;
+  margin-top: 80px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #F72585;
+}
+
+.footer-text {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .quiz-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .quiz-container {
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .category-filter {
+    justify-content: center;
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 80px 20px;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .btn {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+  
+  .quiz-card {
+    padding: 20px;
+  }
+  
+  .question-text {
+    font-size: 1.1rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Loading Spinner */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #F0F0F0;
+  border-top: 4px solid #F72585;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.adsense-sidebar {
+  display: none;
+}
+@media (min-width: 1200px) {
+  .adsense-sidebar {
+    display: block !important;
+  }
+} 
