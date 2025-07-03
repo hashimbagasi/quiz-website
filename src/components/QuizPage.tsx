@@ -96,7 +96,6 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
   }
 
   const currentQuestion = quiz.questions[currentQuestionIndex];
-  const progress = ((currentQuestionIndex + 1) / quiz.questions.length) * 100;
 
   const handleAnswerSelect = (answerIndex: number) => {
     if (selectedOption !== null) return; // منع اختيار أكثر من خيار
