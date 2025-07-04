@@ -25,7 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "postbuild": "copy public\\_headers build\\_headers"
+    "postbuild": "shx cp public/_headers build/_headers"
   },
   "eslintConfig": {
     "extends": [
@@ -61,5 +61,8 @@
     "type": "git",
     "url": "https://github.com/your-username/quiz-website.git"
   },
-  "homepage": "https://your-domain.com"
+  "homepage": "https://your-domain.com",
+  "devDependencies": {
+    "shx": "^0.4.0"
+  }
 }
