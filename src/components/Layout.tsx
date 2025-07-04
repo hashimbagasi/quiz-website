@@ -183,18 +183,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               flex: 1,
               minWidth: 0
             }}>
-              <span style={{ fontSize: '2rem' }}>🧠</span>
-              <h1 className="navbar-logo" style={{ 
-                fontSize: '1.5rem', 
-                fontWeight: '700', 
-                color: '#F72585',
-                margin: 0,
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis'
-              }}>
-                اختباراتي
-              </h1>
+              <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: 8 }}>
+                <img src="/quizksa-logo.svg" alt="QuizKSA Logo" style={{ height: 48, display: 'block' }} />
+              </Link>
             </div>
             {/* زر الهامبرجر يظهر فقط في الشاشات الصغيرة */}
             <button className="hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
