@@ -190,12 +190,12 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
           };
         }
         const dominantType = personalityTypes.reduce((a, b) => personalityScores[a] > personalityScores[b] ? a : b);
-        return {
-          type: 'personality',
-          personalityType: dominantType,
-          score: 0,
-          totalQuestions: quiz.questions.length
-        };
+      return {
+        type: 'personality',
+        personalityType: dominantType,
+        score: 0,
+        totalQuestions: quiz.questions.length
+      };
       }
     } else {
       let correctAnswers = 0;
@@ -902,7 +902,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
           </div>
           <div style={{ fontSize: '1.4rem', fontWeight: 600, marginBottom: 24, color: '#1A1A1A' }}>
             {currentQuestion.text}
-          </div>
+        </div>
           <div className="options-list">
             {currentQuestion.options.map((option, idx) => {
               let optionClass = 'option-btn';
@@ -921,7 +921,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
                 }
               }
               return (
-                <button
+              <button
                   key={idx}
                   className={optionClass}
                   onClick={() => handleAnswerSelect(idx)}
@@ -943,8 +943,8 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
                     outline: 'none',
                     ...(selectedOption !== null && idx === selectedOption && answerStatus === 'wrong' && quiz.category !== 'تحليل شخصية' ? { animation: 'shake 0.4s' } : {})
                   }}
-                >
-                  {option}
+              >
+                {option}
                   {selectedOption !== null && quiz.category !== 'تحليل شخصية' && idx === selectedOption && answerStatus === 'correct' && (
                     <span style={{ marginRight: 10, color: '#43a047', fontSize: '1.3em' }}>✔️</span>
                   )}
@@ -954,7 +954,7 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
                   {selectedOption !== null && quiz.category !== 'تحليل شخصية' && idx === currentQuestion.correctAnswer && answerStatus === 'wrong' && (
                     <span style={{ marginRight: 10, color: '#43a047', fontSize: '1.3em' }}>✔️</span>
                   )}
-                </button>
+              </button>
               );
             })}
           </div>
