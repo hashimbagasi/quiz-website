@@ -4,6 +4,8 @@
   "description": "موقع اختبارات ترفيهية وثقافية متنوعة - اختبر نفسك وتحدى أصحابك",
   "private": true,
   "dependencies": {
+    "-": "^0.0.1",
+    "@netlify/plugin-sitemap": "^0.8.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
