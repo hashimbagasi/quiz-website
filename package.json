@@ -4,27 +4,19 @@
   "description": "موقع اختبارات ترفيهية وثقافية متنوعة - اختبر نفسك وتحدى أصحابك",
   "private": true,
   "dependencies": {
-    "-": "^0.0.1",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.18.68",
     "@types/react": "^18.2.42",
     "@types/react-dom": "^18.2.17",
     "@types/react-router-dom": "^5.3.3",
-    "lucide-react": "^0.294.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1",
     "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "typescript": "^4.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postbuild": "shx cp public/_headers build/_headers && shx cp public/_redirects build/_redirects",
     "export-data": "ts-node scripts/export-data.js",
@@ -32,8 +24,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
@@ -64,7 +55,7 @@
     "type": "git",
     "url": "https://github.com/your-username/quiz-website.git"
   },
-  "homepage": "https://your-domain.com",
+  "homepage": "https://quizksa.netlify.app",
   "devDependencies": {
     "shx": "^0.4.0",
     "sitemap": "^8.0.0",
