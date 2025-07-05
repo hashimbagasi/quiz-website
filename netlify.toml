@@ -1,10 +1,2 @@
-[[plugins]]
-package = "@netlify/plugin-sitemap"
-
-  [plugins.inputs]
-  baseUrl = "https://quizksa.netlify.app"
-  buildDir = "build"
-  changeFreq = "daily"
-  priority = 0.7
-  prettyURLs = true
-  trailingSlash = true 
+# تم إزالة Netlify Sitemap Plugin لأنه لا يدعم الروابط الديناميكية
+# نستخدم سكريبت مخصص لتوليد السايت ماب يدوياً 
