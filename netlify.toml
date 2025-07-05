@@ -1,0 +1,10 @@
+[[plugins]]
+package = "@netlify/plugin-sitemap"
+
+  [plugins.inputs]
+  baseUrl = "https://quizksa.netlify.app"
+  buildDir = "build"
+  changeFreq = "daily"
+  priority = 0.7
+  prettyURLs = true
+  trailingSlash = true 
