@@ -5,6 +5,9 @@ import QuizCard from './QuizCard';
 import SearchAndFilter from './SearchAndFilter';
 import AdsensePlaceholder from './AdsensePlaceholder';
 import { blogPosts, BlogPost } from '../data/blogPosts';
+import TopRatedQuizzes from './TopRatedQuizzes';
+import { CommentService } from '../services/commentService';
+import { QuizStats } from '../lib/supabase';
 
 interface HomePageProps {
   quizzes: Quiz[];
@@ -17,6 +20,7 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [quizStats, setQuizStats] = useState<Record<string, QuizStats>>({});
 
   // Loading effect
   useEffect(() => {
@@ -43,6 +47,19 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
       document.body.style.color = '#1A1A1A';
     }
   }, [isDarkMode]);
+
+  useEffect(() => {
+    // جلب جميع إحصائيات الاختبارات من Supabase
+    const fetchStats = async () => {
+      const statsArr = await CommentService.getMostCompletedQuizzes(1000); // جلب كل الإحصائيات
+      const statsMap: Record<string, QuizStats> = {};
+      statsArr.forEach(stat => {
+        statsMap[stat.quiz_id] = stat;
+      });
+      setQuizStats(statsMap);
+    };
+    fetchStats();
+  }, []);
 
   const filteredQuizzes = useMemo(() => {
     let filtered = quizzes;
@@ -715,6 +732,7 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
                 key={quiz.id}
                 quiz={quiz}
                 onClick={() => handleQuizClick(quiz.id)}
+                completionCount={quizStats[quiz.id]?.completion_count ?? 0}
               />
             ))}
           </div>
@@ -987,6 +1005,9 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
           </div>
         </div>
       </section>
+
+      {/* Top Rated Quizzes Section */}
+      <TopRatedQuizzes />
 
       {/* Statistics Section */}
       <section style={{ 

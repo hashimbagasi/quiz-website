@@ -103,12 +103,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         top: 0,
         zIndex: 100
       }}>
-        {/* تحسين تجاوب الهيدر للشاشات الصغيرة + منيو هامبرجر */}
         <style>{`
-          @media (max-width: 500px) {
+          @media (max-width: 900px) {
             .header-flex {
               flex-direction: column !important;
-              gap: 8px !important;
+              gap: 12px !important;
               align-items: stretch !important;
             }
             .navbar-logo {
@@ -117,56 +116,37 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               text-align: center !important;
             }
             .navbar-links {
-              display: none !important;
+              flex-direction: column !important;
+              gap: 12px !important;
+              align-items: center !important;
+              margin: 0 !important;
             }
-            .hamburger {
-              display: flex !important;
+            .support-btn {
+              align-self: center !important;
+              margin: 0 0 8px 0 !important;
             }
           }
-          .hamburger {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 102;
-          }
-          .hamburger span {
-            display: block;
-            width: 28px;
-            height: 4px;
-            margin: 4px 0;
-            background: #F72585;
-            border-radius: 2px;
-            transition: 0.3s;
-          }
-          .mobile-menu-overlay {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(255,255,255,0.98);
-            z-index: 101;
-            transition: opacity 0.3s;
-          }
-          .mobile-menu-link {
-            font-size: 1.3rem;
-            color: #F72585;
-            margin: 18px 0;
-            text-decoration: none;
+          .support-btn {
+            background: linear-gradient(135deg, #FFD700 0%, #F72585 100%);
+            color: #fff;
+            border-radius: 24px;
+            padding: 8px 20px;
+            font-size: 1rem;
             font-weight: 700;
-            background: none;
-            border: none;
+            box-shadow: 0 2px 8px rgba(247,37,133,0.10);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
             cursor: pointer;
+            border: none;
+            height: 40px;
+            margin-left: 16px;
+          }
+          .support-btn:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 4px 16px #F7258540;
           }
         `}</style>
         <div className="container">
@@ -174,34 +154,35 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             display: 'flex', 
             justifyContent: 'space-between', 
             alignItems: 'center',
-            gap: '20px'
+            gap: '20px',
+            flexWrap: 'wrap'
           }}>
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center',
-              gap: '10px',
-              flex: 1,
-              minWidth: 0
-            }}>
-              <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: 8 }}>
-                <img src="/quizksa-logo.svg" alt="QuizKSA Logo" style={{ height: 48, display: 'block' }} />
-              </Link>
-            </div>
-            {/* زر الهامبرجر يظهر فقط في الشاشات الصغيرة */}
-            <button className="hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-            <nav style={{ flex: 1, minWidth: 0, display: 'flex', justifyContent: 'flex-end' }}>
+            {/* زر الدعم */}
+            <a
+              href="https://coff.ee/hashimbdev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="support-btn"
+              title="ادعمني على كوفي"
+            >
+              <span style={{ fontSize: '1.2rem' }}>☕</span>
+              <span>ادعمني</span>
+            </a>
+            {/* الشعار */}
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: 8 }}>
+              <img src="/quizksa-logo.svg" alt="QuizKSA Logo" style={{ height: 48, display: 'block' }} />
+            </Link>
+            {/* القائمة */}
+            <nav style={{ flex: 1, minWidth: 0, display: 'flex', justifyContent: 'center' }}>
               <ul className="navbar-links" style={{ 
                 display: 'flex', 
                 listStyle: 'none', 
                 gap: '30px',
                 margin: 0,
                 padding: 0,
-                justifyContent: 'flex-end',
-                width: '100%'
+                alignItems: 'center',
+                justifyContent: 'center',
+                flex: 1
               }}>
                 <li>
                   <Link
@@ -290,6 +271,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </li>
               </ul>
             </nav>
+            {/* زر الهامبرجر يظهر فقط في الشاشات الصغيرة */}
+            <button className="hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
           </div>
         </div>
         {/* قائمة Overlay تظهر عند فتح المنيو في الشاشات الصغيرة */}

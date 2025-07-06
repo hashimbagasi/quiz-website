@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Quiz, getSimilarQuizzes, getHejaziResultMessage, getNajdiResultMessage } from '../data/quizzes';
 import QuizCard from './QuizCard';
 import AdsensePlaceholder from './AdsensePlaceholder';
+import CommentsSection from './CommentsSection';
+import { CommentService } from '../services/commentService';
 
 interface QuizPageProps {
   quizzes: Quiz[];
@@ -48,6 +50,13 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
       questionRef.current.classList.add('fade-in-question');
     }
   }, [currentQuestionIndex]);
+
+  // تسجيل إكمال الاختبار عند ظهور النتائج
+  useEffect(() => {
+    if (showResults && quiz) {
+      CommentService.recordQuizCompletion(quiz.id);
+    }
+  }, [showResults, quiz]);
 
   if (!quiz) {
     return (
@@ -871,6 +880,9 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
                 إعادة الاختبار
               </button>
             </div>
+            
+            {/* قسم التعليقات والتقييمات */}
+            {quiz && <CommentsSection quizId={quiz.id} quizTitle={quiz.title} />}
           </div>
           <AdsensePlaceholder height={90} />
           {similarQuizzes.length > 0 && (

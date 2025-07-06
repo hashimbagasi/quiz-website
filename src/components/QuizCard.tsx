@@ -4,9 +4,10 @@ import { Quiz } from '../data/quizzes';
 interface QuizCardProps {
   quiz: Quiz;
   onClick: () => void;
+  completionCount?: number;
 }
 
-const QuizCard: React.FC<QuizCardProps> = ({ quiz, onClick }) => {
+const QuizCard: React.FC<QuizCardProps> = ({ quiz, onClick, completionCount = 0 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -66,7 +67,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onClick }) => {
         {getDifficultyText(quiz.popularity)}
       </div>
 
-      {/* Popularity badge */}
+      {/* Completion count badge */}
       <div style={{
         position: 'absolute',
         top: '12px',
@@ -79,7 +80,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onClick }) => {
         fontWeight: 500,
         zIndex: 2
       }}>
-        🔥 {quiz.popularity.toLocaleString()}
+        🔥 {completionCount}
       </div>
 
       {/* Animated icon */}
