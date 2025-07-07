@@ -1,0 +1,19 @@
+.notfound-container {
+  text-align: center;
+  padding: 100px 0;
+}
+
+.notfound-icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+}
+
+.notfound-title {
+  color: #F72585;
+  margin-bottom: 16px;
+}
+
+.notfound-desc {
+  color: #666;
+  margin-bottom: 32px;
+} 

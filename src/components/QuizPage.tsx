@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Quiz, getSimilarQuizzes, getHejaziResultMessage, getNajdiResultMessage } from '../data/quizzes';
 import QuizCard from './QuizCard';
-import AdsensePlaceholder from './AdsensePlaceholder';
 import CommentsSection from './CommentsSection';
 import { CommentService } from '../services/commentService';
+import '../styles/QuizPage.css';
 
 interface QuizPageProps {
   quizzes: Quiz[];
@@ -582,7 +582,6 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
     return (
       <div className="container">
         <div className="quiz-container">
-          <AdsensePlaceholder height={90} />
           <div className="results-container">
             <h2 style={{ marginBottom: '20px', color: '#1A1A1A' }}>نتيجة اختبار {quiz.title}</h2>
             {userName && (
@@ -884,7 +883,6 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
             {/* قسم التعليقات والتقييمات */}
             {quiz && <CommentsSection quizId={quiz.id} quizTitle={quiz.title} />}
           </div>
-          <AdsensePlaceholder height={90} />
           {similarQuizzes.length > 0 && (
             <div className="similar-quizzes">
               <h3>اختبارات مشابهة</h3>
@@ -907,7 +905,6 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
   return (
     <div className="container">
       <div className="quiz-container">
-        <AdsensePlaceholder height={90} />
         <div ref={questionRef} className="fade-in-question" style={{ marginBottom: 40 }}>
           <div style={{ fontSize: '1.2rem', fontWeight: 700, color: '#F72585', marginBottom: 16 }}>
             سؤال {currentQuestionIndex + 1} من {quiz.questions.length}

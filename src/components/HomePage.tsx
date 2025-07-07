@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Quiz, getQuizzesByCategory } from '../data/quizzes';
 import QuizCard from './QuizCard';
 import SearchAndFilter from './SearchAndFilter';
-import AdsensePlaceholder from './AdsensePlaceholder';
 import { blogPosts, BlogPost } from '../data/blogPosts';
 import TopRatedQuizzes from './TopRatedQuizzes';
 import { CommentService } from '../services/commentService';
 import { QuizStats } from '../lib/supabase';
+import '../styles/HomePage.css';
 
 interface HomePageProps {
   quizzes: Quiz[];
@@ -864,8 +864,6 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
           </div>
         )}
       </section>
-
-      <AdsensePlaceholder height={120} />
 
       {/* Blog Section */}
       <section className="container" style={{ marginTop: '60px' }}>

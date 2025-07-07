@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getBlogPost, getLatestPosts } from '../data/blogPosts';
+import '../styles/Blog.css';
 
 const Blog: React.FC = () => {
   const { id } = useParams<{ id: string }>();

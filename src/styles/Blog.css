@@ -1,0 +1,19 @@
+.blog-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+
+.blog-title {
+  color: #F72585;
+  margin-bottom: 24px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.blog-section {
+  margin-bottom: 40px;
+} 

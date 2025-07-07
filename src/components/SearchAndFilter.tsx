@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/SearchAndFilter.css';
 
 interface SearchAndFilterProps {
   searchQuery: string;
@@ -18,22 +19,9 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   isDarkMode = false
 }) => {
   return (
-    <div className="search-section" style={{
-      background: isDarkMode ? '#2a2a2a' : 'white',
-      padding: '40px 20px',
-      borderRadius: '20px',
-      marginBottom: '40px',
-      boxShadow: isDarkMode ? '0 4px 20px rgba(0,0,0,0.3)' : '0 4px 20px rgba(164,80,139,0.1)',
-      border: isDarkMode ? '1px solid #333' : '1px solid #f0f0f0'
-    }}>
+    <div className="search-section">
       <div className="search-container">
-        <h2 style={{ 
-          marginBottom: '20px', 
-          color: isDarkMode ? '#ffffff' : '#1A1A1A',
-          textAlign: 'center',
-          fontSize: '1.8rem',
-          fontWeight: '600'
-        }}>
+        <h2 className="search-title">
           🔍 ابحث عن اختبار
         </h2>
         <input
