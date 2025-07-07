@@ -1,2 +1,4 @@
-# تم إزالة Netlify Sitemap Plugin لأنه لا يدعم الروابط الديناميكية
-# نستخدم سكريبت مخصص لتوليد السايت ماب يدوياً 
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml" 
