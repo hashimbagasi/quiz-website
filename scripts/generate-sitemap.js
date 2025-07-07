@@ -1,4 +1,4 @@
-const { SitemapStream } = require('sitemap');
+const { SitemapStream, streamToPromise } = require('sitemap');
 const { createWriteStream, readFileSync } = require('fs');
 const path = require('path');
 
@@ -34,14 +34,15 @@ quizzes.forEach(quiz => {
   });
 });
 
-// توليد السايت ماب
-const sitemap = new SitemapStream({ hostname: BASE_URL });
-const writeStream = createWriteStream(path.join(__dirname, '../public/sitemap.xml'));
-sitemap.pipe(writeStream);
+(async () => {
+  const sitemap = new SitemapStream({ hostname: BASE_URL });
+  const writeStream = createWriteStream(path.join(__dirname, '../public/sitemap.xml'));
+  sitemap.pipe(writeStream);
 
-links.forEach(link => sitemap.write(link));
-sitemap.end();
+  links.forEach(link => sitemap.write(link));
+  sitemap.end();
 
-writeStream.on('finish', () => {
+  await streamToPromise(sitemap);
+  writeStream.end();
   console.log('✅ تم توليد ملف sitemap.xml بنجاح في مجلد public');
-}); 
+})(); 
