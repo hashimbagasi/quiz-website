@@ -6,7 +6,8 @@ import SearchAndFilter from './SearchAndFilter';
 import { blogPosts, BlogPost } from '../data/blogPosts';
 import TopRatedQuizzes from './TopRatedQuizzes';
 import { CommentService } from '../services/commentService';
-import { QuizStats } from '../lib/supabase';
+import { QuizStats, Comment } from '../lib/supabase';
+import CommentsMarquee from './CommentsMarquee';
 import '../styles/HomePage.css';
 
 interface HomePageProps {
@@ -21,6 +22,7 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [quizStats, setQuizStats] = useState<Record<string, QuizStats>>({});
+  const [allComments, setAllComments] = useState<Comment[]>([]);
 
   // Loading effect
   useEffect(() => {
@@ -59,6 +61,13 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
       setQuizStats(statsMap);
     };
     fetchStats();
+
+    // جلب كل التعليقات
+    const fetchAllComments = async () => {
+      const comments = await CommentService.getAllComments();
+      setAllComments(comments);
+    };
+    fetchAllComments();
   }, []);
 
   const filteredQuizzes = useMemo(() => {
@@ -1006,6 +1015,7 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
 
       {/* Top Rated Quizzes Section */}
       <TopRatedQuizzes />
+      <CommentsMarquee comments={allComments} />
 
       {/* Statistics Section */}
       <section style={{ 

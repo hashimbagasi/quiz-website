@@ -177,4 +177,22 @@ export class CommentService {
       return []
     }
   }
+
+  // جلب كل التعليقات من كل الاختبارات
+  static async getAllComments(): Promise<Comment[]> {
+    try {
+      const { data, error } = await supabase
+        .from('comments')
+        .select('*')
+        .order('created_at', { ascending: false })
+      if (error) {
+        console.error('Error fetching all comments:', error)
+        return []
+      }
+      return data || []
+    } catch (error) {
+      console.error('Error fetching all comments:', error)
+      return []
+    }
+  }
 } 
