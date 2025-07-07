@@ -27,12 +27,6 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onClick, completionCount = 0 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const getDifficultyColor = (popularity: number) => {
-    if (popularity > 3000) return '#FF6B6B'; // صعب
-    if (popularity > 2000) return '#4ECDC4'; // متوسط
-    return '#45B7D1'; // سهل
-  };
-
   const getDifficultyText = (popularity: number) => {
     if (popularity > 3000) return 'صعب';
     if (popularity > 2000) return 'متوسط';
