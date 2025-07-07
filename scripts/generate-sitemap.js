@@ -4,14 +4,22 @@ const { create } = require('xmlbuilder2');
 
 const BASE_URL = 'https://quizksa.netlify.app';
 
-// عدل هنا لإضافة روابط جديدة
+// أضف هنا جميع الروابط يدوياً
 const links = [
   '/',
   '/about',
   '/contact',
   '/privacy-policy',
   '/blog',
-  // أضف روابط اختباراتك أو صفحاتك هنا
+  // روابط مقالات
+  '/blog/mbti-16-types',
+  '/blog/dialect-quizzes-popularity',
+  '/blog/new-quiz-features',
+  // روابط اختبارات
+  '/quizzes/intelligence-quiz-1',
+  '/quizzes/general-knowledge-1',
+  '/quizzes/personality-quiz-1',
+  '/quizzes/mbti',
 ];
 
 const urlset = {
@@ -28,4 +36,4 @@ const urlset = {
 const doc = create(urlset);
 const xml = doc.end({ prettyPrint: true, headless: false });
 writeFileSync('public/sitemap.xml', xml);
-console.log('✅ تم توليد ملف sitemap.xml بنجاح وبصيغة مرتبة في public/'); 
+console.log('✅ تم توليد ملف sitemap.xml بجميع الروابط في public/'); 
