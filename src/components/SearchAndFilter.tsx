@@ -18,44 +18,43 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   onCategoryChange,
   isDarkMode = false
 }) => {
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'لهجات': return '🗣️';
+      case 'ذكاء': return '🧠';
+      case 'معلومات عامة': return '📚';
+      case 'تحليل شخصية': return '🔮';
+      default: return '🎯';
+    }
+  };
+
   return (
-    <div className="search-section">
-      <div className="search-container">
-        <h2 className="search-title">
-          🔍 ابحث عن اختبار
-        </h2>
+    <div className="search-filter-container optimized-layout">
+      <div className="search-section optimized-search">
         <input
           type="text"
-          className="search-input"
-          placeholder="اكتب اسم الاختبار أو الوصف..."
+          placeholder="🔍 ابحث في الاختبارات..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          style={{
-            background: isDarkMode ? '#1a1a1a' : 'white',
-            color: isDarkMode ? '#ffffff' : '#1A1A1A',
-            borderColor: isDarkMode ? '#444' : '#E0E0E0'
-          }}
+          className="search-input optimized-search-input optimized-text"
         />
-        
-        <div className="category-filter">
-          {categories.map((category) => (
+      </div>
+      
+      <div className="filter-section optimized-filter">
+        <div className="category-buttons optimized-layout">
+          <button
+            className={`category-btn optimized-filter-btn interactive-element${selectedCategory === 'الكل' ? ' active' : ''}`}
+            onClick={() => onCategoryChange('الكل')}
+          >
+            🎯 الكل
+          </button>
+          {categories.slice(1).map((category) => (
             <button
               key={category}
-              className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
+              className={`category-btn optimized-filter-btn interactive-element${selectedCategory === category ? ' active' : ''}`}
               onClick={() => onCategoryChange(category)}
-              style={{
-                background: selectedCategory === category 
-                  ? 'linear-gradient(135deg, #F72585, #7209B7)' 
-                  : isDarkMode ? '#2a2a2a' : 'white',
-                color: selectedCategory === category 
-                  ? 'white' 
-                  : isDarkMode ? '#cccccc' : '#666',
-                borderColor: selectedCategory === category 
-                  ? '#F72585' 
-                  : isDarkMode ? '#444' : '#E0E0E0'
-              }}
             >
-              {category}
+              {getCategoryIcon(category)} {category}
             </button>
           ))}
         </div>

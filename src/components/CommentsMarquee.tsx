@@ -13,20 +13,31 @@ const CommentsMarquee: React.FC<CommentsMarqueeProps> = ({ comments }) => {
   const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
-  const scrollLeft = useRef(0);
+  const scrollLeftPos = useRef(0);
+  const cachedWidth = useRef(0);
 
-  // Auto scroll
+  // Auto scroll with performance optimization
   useEffect(() => {
     if (!sliderRef.current || comments.length < 3) return;
+    
+    // قياس العرض مرة واحدة فقط
+    const measureWidth = () => {
+      if (sliderRef.current) {
+        cachedWidth.current = sliderRef.current.clientWidth;
+      }
+    };
+    measureWidth();
+    
     autoScrollRef.current = setInterval(() => {
       if (!sliderRef.current) return;
-      const { scrollLeft: sl, scrollWidth, clientWidth } = sliderRef.current;
-      if (sl + clientWidth >= scrollWidth - 5) {
+      const { scrollLeft: sl, scrollWidth } = sliderRef.current;
+      if (sl + cachedWidth.current >= scrollWidth - 5) {
         sliderRef.current.scrollTo({ left: 0, behavior: 'smooth' });
       } else {
-        sliderRef.current.scrollBy({ left: sliderRef.current.clientWidth, behavior: 'smooth' });
+        sliderRef.current.scrollBy({ left: cachedWidth.current, behavior: 'smooth' });
       }
     }, AUTO_SCROLL_INTERVAL);
+    
     return () => {
       if (autoScrollRef.current) clearInterval(autoScrollRef.current);
     };
@@ -36,7 +47,7 @@ const CommentsMarquee: React.FC<CommentsMarqueeProps> = ({ comments }) => {
   const onMouseDown = (e: React.MouseEvent) => {
     isDragging.current = true;
     startX.current = e.pageX - (sliderRef.current?.offsetLeft || 0);
-    scrollLeft.current = sliderRef.current?.scrollLeft || 0;
+    scrollLeftPos.current = sliderRef.current?.scrollLeft || 0;
   };
   const onMouseLeave = () => { isDragging.current = false; };
   const onMouseUp = () => { isDragging.current = false; };
@@ -45,38 +56,51 @@ const CommentsMarquee: React.FC<CommentsMarqueeProps> = ({ comments }) => {
     e.preventDefault();
     const x = e.pageX - sliderRef.current.offsetLeft;
     const walk = (x - startX.current) * 1.2;
-    sliderRef.current.scrollLeft = scrollLeft.current - walk;
+    sliderRef.current.scrollLeft = scrollLeftPos.current - walk;
   };
   // Touch events
   const onTouchStart = (e: React.TouchEvent) => {
     isDragging.current = true;
     startX.current = e.touches[0].pageX - (sliderRef.current?.offsetLeft || 0);
-    scrollLeft.current = sliderRef.current?.scrollLeft || 0;
+    scrollLeftPos.current = sliderRef.current?.scrollLeft || 0;
   };
   const onTouchEnd = () => { isDragging.current = false; };
   const onTouchMove = (e: React.TouchEvent) => {
     if (!isDragging.current || !sliderRef.current) return;
     const x = e.touches[0].pageX - sliderRef.current.offsetLeft;
     const walk = (x - startX.current) * 1.2;
-    sliderRef.current.scrollLeft = scrollLeft.current - walk;
+    sliderRef.current.scrollLeft = scrollLeftPos.current - walk;
   };
 
-  // Manual scroll buttons
+  // Manual scroll buttons with cached width
   const scrollByAmount = (amount: number) => {
     if (sliderRef.current) {
       sliderRef.current.scrollBy({ left: amount, behavior: 'smooth' });
     }
   };
 
+  // تحسين أزرار التمرير
+  const handleScrollLeft = () => {
+    if (sliderRef.current && cachedWidth.current > 0) {
+      scrollByAmount(-cachedWidth.current / 1.2);
+    }
+  };
+
+  const handleScrollRight = () => {
+    if (sliderRef.current && cachedWidth.current > 0) {
+      scrollByAmount(cachedWidth.current / 1.2);
+    }
+  };
+
   if (!comments || comments.length === 0) return null;
 
   return (
-    <div className="comments-slider-section">
-      <h3 className="comments-slider-title">آراء المستخدمين</h3>
-      <div className="comments-slider-controls">
-        <button className="slider-btn right" onClick={() => scrollByAmount(-sliderRef.current!.clientWidth / 1.2)}>&#8592;</button>
+    <div className="comments-slider-section optimized-layout">
+      <h3 className="comments-slider-title optimized-text">آراء المستخدمين</h3>
+      <div className="comments-slider-controls optimized-layout">
+        <button className="slider-btn right optimized-button interactive-element" onClick={handleScrollLeft}>&#8592;</button>
         <div
-          className="comments-slider"
+          className="comments-slider optimized-slider smooth-scroll"
           ref={sliderRef}
           onMouseDown={onMouseDown}
           onMouseLeave={onMouseLeave}
@@ -87,16 +111,16 @@ const CommentsMarquee: React.FC<CommentsMarqueeProps> = ({ comments }) => {
           onTouchMove={onTouchMove}
         >
           {comments.map((comment, idx) => (
-            <div className="slider-comment" key={comment.id + idx}>
-              <div className="slider-comment-header">
-                <span className="slider-author">{comment.user_name}</span>
-                <span className="slider-rating">{'★'.repeat(comment.rating)}</span>
+            <div className="slider-comment optimized-slider-item optimized-card" key={comment.id + idx}>
+              <div className="slider-comment-header optimized-layout">
+                <span className="slider-author optimized-text">{comment.user_name}</span>
+                <span className="slider-rating optimized-rating">{'★'.repeat(comment.rating)}</span>
               </div>
-              <div className="slider-comment-text">{comment.comment_text}</div>
+              <div className="slider-comment-text optimized-text">{comment.comment_text}</div>
             </div>
           ))}
         </div>
-        <button className="slider-btn left" onClick={() => scrollByAmount(sliderRef.current!.clientWidth / 1.2)}>&#8594;</button>
+        <button className="slider-btn left optimized-button interactive-element" onClick={handleScrollRight}>&#8594;</button>
       </div>
     </div>
   );

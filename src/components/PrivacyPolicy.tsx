@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/PrivacyPolicy.css';
 
 const PrivacyPolicy: React.FC = () => (
-  <div className="container privacy-container" style={{ maxWidth: 700, margin: '40px auto', background: '#fff', borderRadius: 16, padding: 32, boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
+  <div className="container privacy-container">
     <h1 className="privacy-title">سياسة الخصوصية</h1>
     <p>نحرص على خصوصيتك ونحترم معلوماتك. نوضح في هذه الصفحة كيف نتعامل مع أي بيانات قد يتم جمعها عند زيارتك لموقعنا.</p>
     <h2 className="privacy-section-title">🔹 المعلومات التي نجمعها</h2>

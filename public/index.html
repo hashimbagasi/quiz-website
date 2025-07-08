@@ -1,6 +1,47 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
   <head>
+    <!-- Preload Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="%PUBLIC_URL%/static/css/main.css" as="style">
+    
+    <!-- Critical CSS Inline -->
+    <style>
+      /* Critical CSS for above-the-fold content */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background-color: #FAFAFA;
+        color: #1A1A1A;
+        direction: rtl;
+      }
+      .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #a4508b 0%, #f7666f 100%);
+      }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(255,255,255,0.3);
+        border-top: 3px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+    
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -53,7 +94,7 @@
     <meta name="twitter:title" content="اختباراتي - موقع الاختبارات الترفيهية" />
     <meta name="twitter:description" content="اكتشف اختبارات ترفيهية وثقافية متنوعة، وشارك نتائجك مع أصدقائك" />
     <meta name="twitter:image" content="%PUBLIC_URL%/quizksa-logo.svg" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8735811107188061" crossorigin="anonymous"></script>
+    <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8735811107188061" crossorigin="anonymous"></script>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->

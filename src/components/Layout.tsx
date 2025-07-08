@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Footer from './Footer';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../styles/Layout.css';
@@ -13,29 +13,33 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [quizzesActive, setQuizzesActive] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // مراقبة ظهور قسم #quizzes في الشاشة
+  // تحسين أداء مراقبة التمرير باستخدام Intersection Observer
   useEffect(() => {
-    const handleScroll = () => {
-      const el = document.getElementById('quizzes');
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        // إذا كان القسم ظاهر بنسبة 40% أو أكثر
-        if (rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.2) {
-          setQuizzesActive(true);
-        } else {
-          setQuizzesActive(false);
-        }
-      } else {
-        setQuizzesActive(false);
-      }
-    };
-    if (location.pathname === '/') {
-      window.addEventListener('scroll', handleScroll);
-      handleScroll(); // تحقق أولي عند التحميل
+    if (location.pathname !== '/') {
+      setQuizzesActive(false);
+      return;
     }
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+
+    const el = document.getElementById('quizzes');
+    if (!el) {
+      setQuizzesActive(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setQuizzesActive(entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0.4, // 40% من العنصر يجب أن يكون ظاهر
+        rootMargin: '-20% 0px -20% 0px'
+      }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [location.pathname]);
 
   // تحديد الصفحة النشطة
@@ -70,32 +74,32 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="layout-root">
+    <div className="layout-root optimized-page">
       {/* Header */}
-      <header className="header">
-        <div className="header-container">
-          <div className="header-flex">
+      <header className="header optimized-header">
+        <div className="header-container optimized-layout">
+          <div className="header-flex optimized-layout">
             {/* زر الدعم */}
             <a
               href="https://coff.ee/hashimbdev"
               target="_blank"
               rel="noopener noreferrer"
-              className="support-btn"
+              className="support-btn optimized-button interactive-element"
               title="ادعمني على كوفي"
             >
               <span className="coffee-icon">☕</span>
               <span>ادعمني</span>
             </a>
             {/* الشعار */}
-            <Link to="/" className="link-no-decoration">
+            <Link to="/" className="link-no-decoration optimized-image">
               <img src="/quizksa-logo.svg" alt="QuizKSA Logo" className="logo-img" />
             </Link>
             {/* القائمة */}
-            <nav>
-              <ul className="navbar-links">
+            <nav className="optimized-nav">
+              <ul className="navbar-links optimized-list">
                 <li>
                   <Link
-                    className={`navbar-link${isActive('/blog') ? ' navbar-link--active' : ''}`}
+                    className={`navbar-link optimized-nav-link${isActive('/blog') ? ' navbar-link--active' : ''}`}
                     to="/blog"
                   >
                     المدونة
@@ -103,7 +107,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </li>
                 <li>
                   <Link
-                    className={`navbar-link${isActive('/#quizzes') ? ' navbar-link--active' : ''}`}
+                    className={`navbar-link optimized-nav-link${isActive('/#quizzes') ? ' navbar-link--active' : ''}`}
                     to="/#quizzes"
                     onClick={handleQuizzesClick}
                   >
@@ -112,7 +116,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </li>
                 <li>
                   <Link
-                    className={`navbar-link${isActive('/about') ? ' navbar-link--active' : ''}`}
+                    className={`navbar-link optimized-nav-link${isActive('/about') ? ' navbar-link--active' : ''}`}
                     to="/about"
                   >
                     عن الموقع
@@ -120,7 +124,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </li>
                 <li>
                   <Link
-                    className={`navbar-link${isActive('/') ? ' navbar-link--active' : ''}`}
+                    className={`navbar-link optimized-nav-link${isActive('/') ? ' navbar-link--active' : ''}`}
                     to="/"
                     onClick={e => {
                       if (location.pathname === '/') {
@@ -135,7 +139,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </ul>
             </nav>
             {/* زر الهامبرجر يظهر فقط في الشاشات الصغيرة */}
-            <button className="hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
+            <button className="hamburger optimized-button interactive-element" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
               <span></span>
               <span></span>
               <span></span>
@@ -144,18 +148,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
         {/* قائمة Overlay تظهر عند فتح المنيو في الشاشات الصغيرة */}
         {menuOpen && (
-          <div className="mobile-menu-overlay" onClick={() => setMenuOpen(false)}>
-            <button className="mobile-menu-link" onClick={() => { setMenuOpen(false); navigate('/'); }}>الرئيسية</button>
-            <button className="mobile-menu-link" onClick={() => { setMenuOpen(false); handleQuizzesClick(); }}>الاختبارات</button>
-            <button className="mobile-menu-link" onClick={() => { setMenuOpen(false); navigate('/about'); }}>عن الموقع</button>
-            <button className="mobile-menu-link" onClick={() => { setMenuOpen(false); navigate('/blog'); }}>المدونة</button>
-            <button className="mobile-menu-link mobile-menu-link--close" onClick={() => setMenuOpen(false)}>إغلاق ✕</button>
+          <div className="mobile-menu-overlay optimized-layout" onClick={() => setMenuOpen(false)}>
+            <button className="mobile-menu-link optimized-nav-link" onClick={() => { setMenuOpen(false); navigate('/'); }}>الرئيسية</button>
+            <button className="mobile-menu-link optimized-nav-link" onClick={() => { setMenuOpen(false); handleQuizzesClick(); }}>الاختبارات</button>
+            <button className="mobile-menu-link optimized-nav-link" onClick={() => { setMenuOpen(false); navigate('/about'); }}>عن الموقع</button>
+            <button className="mobile-menu-link optimized-nav-link" onClick={() => { setMenuOpen(false); navigate('/blog'); }}>المدونة</button>
+            <button className="mobile-menu-link mobile-menu-link--close optimized-nav-link" onClick={() => setMenuOpen(false)}>إغلاق ✕</button>
           </div>
         )}
       </header>
 
       {/* Main Content */}
-      <main>
+      <main className="optimized-main">
         {children}
       </main>
 

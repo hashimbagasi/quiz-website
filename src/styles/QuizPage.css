@@ -111,4 +111,226 @@
   color: #e53935;
   font-size: 1.3em;
   margin-right: 10px;
+}
+
+/* Quiz name input styles */
+.quiz-name-container {
+  max-width: 400px;
+  margin: 80px auto;
+  text-align: center;
+}
+
+.quiz-name-title {
+  margin-bottom: 30px;
+  color: #1A1A1A;
+}
+
+.quiz-name-description {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.quiz-name-input {
+  margin-bottom: 10px;
+}
+
+.quiz-name-error {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.quiz-name-button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Quiz results styles */
+.quiz-results-title {
+  margin-bottom: 20px;
+  color: #1A1A1A;
+}
+
+.quiz-user-name {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #F72585;
+}
+
+.quiz-score-display-large {
+  font-size: 2.5rem;
+}
+
+.quiz-score-display-medium {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.quiz-mbti-container {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.quiz-mbti-title {
+  color: #F72585;
+  margin-bottom: 15px;
+}
+
+.quiz-mbti-description {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.quiz-mbti-dimension {
+  margin-bottom: 15px;
+}
+
+.quiz-mbti-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.quiz-mbti-label {
+  font-weight: 600;
+  color: #666;
+}
+
+.quiz-mbti-bar {
+  background: #e9ecef;
+  height: 20px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.quiz-mbti-indicator {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 2px;
+}
+
+.quiz-mbti-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.quiz-mbti-scores {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* MBTI Analysis styles */
+.mbti-analysis-container {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.mbti-analysis-title {
+  color: #F72585;
+  margin-bottom: 15px;
+}
+
+.mbti-analysis-description {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.mbti-dimension {
+  margin-bottom: 15px;
+}
+
+.mbti-dimension-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.mbti-dimension-label {
+  font-weight: 600;
+  color: #666;
+}
+
+.mbti-progress-bar {
+  background: #e9ecef;
+  height: 20px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mbti-progress-indicator {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 2px;
+}
+
+.mbti-progress-indicator.ei {
+  background: #F72585;
+}
+
+.mbti-progress-indicator.sn {
+  background: #7209B7;
+}
+
+.mbti-progress-indicator.tf {
+  background: #4361EE;
+}
+
+.mbti-progress-indicator.jp {
+  background: #3A0CA3;
+}
+
+.mbti-progress-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.mbti-progress-marker.ei {
+  background: #F72585;
+}
+
+.mbti-progress-marker.sn {
+  background: #7209B7;
+}
+
+.mbti-progress-marker.tf {
+  background: #4361EE;
+}
+
+.mbti-progress-marker.jp {
+  background: #3A0CA3;
+}
+
+.mbti-dimension-scores {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
 } 

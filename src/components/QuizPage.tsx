@@ -70,22 +70,21 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
   if (!nameSubmitted) {
     return (
       <div className="container">
-        <div className="quiz-container" style={{ maxWidth: 400, margin: '80px auto', textAlign: 'center' }}>
-          <h2 style={{ marginBottom: 30, color: '#1A1A1A' }}>قبل ما تبدأ الاختبار</h2>
-          <p style={{ marginBottom: 20, color: '#666' }}>اكتب اسمك عشان نعرض نتيجتك باسمك بعد نهاية الاختبار</p>
+        <div className="quiz-container quiz-name-container">
+          <h2 className="quiz-name-title">قبل ما تبدأ الاختبار</h2>
+          <p className="quiz-name-description">اكتب اسمك عشان نعرض نتيجتك باسمك بعد نهاية الاختبار</p>
           <input
             type="text"
-            className="search-input"
+            className="search-input quiz-name-input"
             placeholder="اكتب اسمك هنا..."
             value={userName}
             onChange={e => setUserName(e.target.value)}
-            style={{ marginBottom: 10 }}
             maxLength={20}
           />
           <br />
-          {nameError && <div style={{ color: 'red', marginBottom: 10 }}>{nameError}</div>}
+          {nameError && <div className="quiz-name-error">{nameError}</div>}
           <button
-            className="btn btn-primary"
+            className="btn btn-primary quiz-name-button"
             onClick={() => {
               if (userName.trim().length < 2) {
                 setNameError('الرجاء كتابة اسم صحيح (على الأقل حرفين)');
@@ -95,7 +94,6 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
                 localStorage.setItem('quizUserName', userName.trim());
               }
             }}
-            style={{ width: '100%', marginTop: 10 }}
           >
             ابدأ الاختبار
           </button>
@@ -583,15 +581,15 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
       <div className="container">
         <div className="quiz-container">
           <div className="results-container">
-            <h2 style={{ marginBottom: '20px', color: '#1A1A1A' }}>نتيجة اختبار {quiz.title}</h2>
+            <h2 className="quiz-results-title">نتيجة اختبار {quiz.title}</h2>
             {userName && (
-              <div style={{ fontWeight: 600, fontSize: '1.2rem', marginBottom: 10, color: '#F72585' }}>
+              <div className="quiz-user-name">
                 يا {userName}،
               </div>
             )}
             {customResult ? (
               <>
-                <div className="score-display" style={{ fontSize: '2.5rem' }}>
+                <div className="score-display quiz-score-display-large">
                   {customResult.emoji} {customResult.title}
                 </div>
                 <p className="result-message">{customResult.message}</p>
@@ -603,22 +601,16 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
                     {results.score}/{results.totalQuestions}
                   </div>
                 ) : (
-                  <div className="score-display" style={{ fontSize: '2rem', marginBottom: '20px' }}>
+                  <div className="score-display quiz-score-display-medium">
                     🎭 تحليل شخصيتك
                   </div>
                 )}
                 
                 {/* عرض تفصيلي لنتائج MBTI */}
                 {quiz.id === 'personality-quiz-1' && results.mbtiScores && (
-                  <div style={{ 
-                    background: '#f8f9fa', 
-                    padding: '20px', 
-                    borderRadius: '12px', 
-                    marginBottom: '20px',
-                    textAlign: 'right'
-                  }}>
-                    <h4 style={{ color: '#F72585', marginBottom: '15px' }}>📊 تحليل مفصل لأبعاد شخصيتك:</h4>
-                    <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '15px' }}>
+                  <div className="mbti-analysis-container">
+                    <h4 className="mbti-analysis-title">📊 تحليل مفصل لأبعاد شخصيتك:</h4>
+                    <p className="mbti-analysis-description">
                       النقاط تظهر مدى ميلك لكل بعد من أبعاد الشخصية. كل بعد له 5 أسئلة، لذا الحد الأقصى هو 5 نقاط لكل جانب.
                     </p>
                     

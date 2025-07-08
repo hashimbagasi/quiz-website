@@ -16,4 +16,25 @@
 .notfound-desc {
   color: #666;
   margin-bottom: 32px;
+}
+
+/* NotFound page styles */
+.not-found-container {
+  text-align: center;
+  padding: 100px 0;
+}
+
+.not-found-emoji {
+  font-size: 5rem;
+  margin-bottom: 20px;
+}
+
+.not-found-title {
+  color: #F72585;
+  margin-bottom: 16px;
+}
+
+.not-found-description {
+  color: #666;
+  margin-bottom: 32px;
 } 

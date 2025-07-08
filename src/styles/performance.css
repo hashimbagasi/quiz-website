@@ -1,0 +1,451 @@
+/* Performance Optimizations - تجنب Forced Reflow */
+
+/* استخدام transform بدلاً من تغيير خصائص التخطيط */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(247,37,133,0.2);
+}
+
+/* تحسين الانتقالات */
+.smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+/* تحسين التمرير */
+.optimized-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* تحسين الرسوم المتحركة */
+.performance-animation {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* تحسين التفاعل مع الماوس */
+.interactive-element {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* تحسين العرض */
+.optimized-layout {
+  contain: layout style paint;
+}
+
+/* تحسين التحميل */
+.lazy-load {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.lazy-load.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* تحسين الأزرار */
+.optimized-button {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.optimized-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.optimized-button:hover::before {
+  left: 100%;
+}
+
+/* تحسين البطاقات */
+.optimized-card {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.optimized-card:hover {
+  transform: translateY(-8px) translateZ(0);
+  box-shadow: 0 16px 48px rgba(247,37,133,0.15);
+}
+
+/* تحسين السلايدر */
+.optimized-slider {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.optimized-slider-item {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* تحسين النصوص */
+.optimized-text {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* تحسين الصور */
+.optimized-image {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* تحسين القوائم */
+.optimized-list {
+  contain: layout style;
+}
+
+/* تحسين النماذج */
+.optimized-form {
+  contain: layout style;
+}
+
+.optimized-input {
+  transform: translateZ(0);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* تحسين التنقل */
+.optimized-nav {
+  contain: layout style;
+}
+
+.optimized-nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.optimized-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #F72585;
+  transition: width 0.3s ease;
+}
+
+.optimized-nav-link:hover::after {
+  width: 100%;
+}
+
+/* تحسين الإحصائيات */
+.optimized-stats {
+  contain: layout style;
+}
+
+.optimized-stat-item {
+  transform: translateZ(0);
+  transition: transform 0.3s ease;
+}
+
+.optimized-stat-item:hover {
+  transform: scale(1.05) translateZ(0);
+}
+
+/* تحسين التعليقات */
+.optimized-comment {
+  contain: layout style;
+  transform: translateZ(0);
+}
+
+/* تحسين البحث */
+.optimized-search {
+  contain: layout style;
+}
+
+.optimized-search-input {
+  transform: translateZ(0);
+  transition: all 0.3s ease;
+}
+
+/* تحسين التصفية */
+.optimized-filter {
+  contain: layout style;
+}
+
+.optimized-filter-btn {
+  transform: translateZ(0);
+  transition: all 0.3s ease;
+}
+
+/* تحسين التقييمات */
+.optimized-rating {
+  contain: layout style;
+}
+
+.optimized-star {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.optimized-star:hover {
+  transform: scale(1.2);
+}
+
+/* تحسين التحميل */
+.optimized-loading {
+  contain: layout style;
+}
+
+.optimized-spinner {
+  animation: spin 1s linear infinite;
+  transform: translateZ(0);
+}
+
+/* تحسين التنبيهات */
+.optimized-alert {
+  contain: layout style;
+  transform: translateZ(0);
+  transition: all 0.3s ease;
+}
+
+/* تحسين التلميحات */
+.optimized-tooltip {
+  contain: layout style;
+  transform: translateZ(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* تحسين القوائم المنسدلة */
+.optimized-dropdown {
+  contain: layout style;
+  transform: translateZ(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* تحسين الجداول */
+.optimized-table {
+  contain: layout style;
+}
+
+.optimized-table-row {
+  transition: background-color 0.3s ease;
+}
+
+/* تحسين الصفحات */
+.optimized-page {
+  contain: layout style;
+  min-height: 100vh;
+}
+
+/* تحسين الهيدر */
+.optimized-header {
+  contain: layout style;
+  transform: translateZ(0);
+}
+
+/* تحسين الفوتر */
+.optimized-footer {
+  contain: layout style;
+}
+
+/* تحسين الشريط الجانبي */
+.optimized-sidebar {
+  contain: layout style;
+  transform: translateZ(0);
+}
+
+/* تحسين المحتوى الرئيسي */
+.optimized-main {
+  contain: layout style;
+}
+
+/* تحسين الحاوية */
+.optimized-container {
+  contain: layout style;
+}
+
+/* تحسين الشبكة */
+.optimized-grid {
+  contain: layout style;
+}
+
+.optimized-grid-item {
+  transform: translateZ(0);
+  transition: transform 0.3s ease;
+}
+
+/* تحسين المرونة */
+.optimized-flex {
+  contain: layout style;
+}
+
+.optimized-flex-item {
+  transform: translateZ(0);
+}
+
+/* تحسين الموضع */
+.optimized-position {
+  contain: layout style;
+}
+
+/* تحسين الحجم */
+.optimized-size {
+  contain: layout style;
+}
+
+/* تحسين الحدود */
+.optimized-border {
+  contain: layout style;
+}
+
+/* تحسين الخلفية */
+.optimized-background {
+  contain: layout style;
+}
+
+/* تحسين الظلال */
+.optimized-shadow {
+  contain: layout style;
+}
+
+/* تحسين الشفافية */
+.optimized-opacity {
+  contain: layout style;
+}
+
+/* تحسين التدوير */
+.optimized-rotate {
+  transform: translateZ(0);
+  transition: transform 0.3s ease;
+}
+
+/* تحسين التكبير */
+.optimized-scale {
+  transform: translateZ(0);
+  transition: transform 0.3s ease;
+}
+
+/* تحسين الإزاحة */
+.optimized-translate {
+  transform: translateZ(0);
+  transition: transform 0.3s ease;
+}
+
+/* تحسين الانحراف */
+.optimized-skew {
+  transform: translateZ(0);
+  transition: transform 0.3s ease;
+}
+
+/* تحسين المصفوفة */
+.optimized-matrix {
+  transform: translateZ(0);
+  transition: transform 0.3s ease;
+}
+
+/* تحسين المنظور */
+.optimized-perspective {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* تحسين العمق */
+.optimized-depth {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* تحسين الأداء العام */
+.performance-optimized {
+  contain: layout style paint;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+/* تحسين التمرير السلس */
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* تحسين التفاعل */
+.interaction-optimized {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* تحسين التحميل المتأخر */
+.lazy-optimized {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.lazy-optimized.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* تحسين الرسوم المتحركة */
+.animation-optimized {
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* تحسين الانتقالات */
+.transition-optimized {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-property: transform, opacity, box-shadow, color, background-color;
+}
+
+/* تحسين التخطيط */
+.layout-optimized {
+  contain: layout style;
+  transform: translateZ(0);
+}
+
+/* تحسين الرسم */
+.paint-optimized {
+  contain: paint;
+  transform: translateZ(0);
+}
+
+/* تحسين الحجم */
+.size-optimized {
+  contain: size;
+  transform: translateZ(0);
+}
+
+/* تحسين المحتوى */
+.content-optimized {
+  contain: content;
+  transform: translateZ(0);
+}
+
+/* تحسين الكل */
+.all-optimized {
+  contain: all;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+} 

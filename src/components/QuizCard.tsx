@@ -14,17 +14,26 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onClick, completionCount = 0 
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (cardRef.current) {
-        const rect = cardRef.current.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 60) {
-          setVisible(true);
-        }
+    if (!cardRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            // إيقاف المراقبة بعد ظهور العنصر
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1, // 10% من العنصر يجب أن يكون ظاهر
+        rootMargin: '0px 0px -60px 0px'
       }
-    };
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    );
+
+    observer.observe(cardRef.current);
+    return () => observer.disconnect();
   }, []);
 
   const getDifficultyText = (popularity: number) => {
@@ -36,15 +45,10 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onClick, completionCount = 0 
   return (
     <div
       ref={cardRef}
-      className={`quiz-card fade-in-card${visible ? ' visible' : ''}`}
+      className={`quiz-card fade-in-card performance-optimized hover-lift${visible ? ' visible' : ''}`}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ 
-        cursor: 'pointer',
-        position: 'relative',
-        overflow: 'hidden'
-      }}
     >
       {/* Difficulty badge */}
       <div className="difficulty-badge">
@@ -57,17 +61,17 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onClick, completionCount = 0 
       </div>
 
       {/* Animated icon */}
-      <div className="quiz-icon">
+      <div className="quiz-icon performance-animation">
         {quiz.image}
       </div>
 
       {/* Title with gradient effect */}
-      <h3 className="quiz-title">
+      <h3 className="quiz-title optimized-text">
         {quiz.title}
       </h3>
 
       {/* Description */}
-      <p className="quiz-description">
+      <p className="quiz-description optimized-text">
         {quiz.description}
       </p>
 
@@ -79,13 +83,13 @@ const QuizCard: React.FC<QuizCardProps> = ({ quiz, onClick, completionCount = 0 
       {/* Action button */}
       <div className="action-button">
         <button
-          className="btn btn-primary"
+          className="btn btn-primary optimized-button interactive-element"
           onClick={e => {
             e.stopPropagation();
             onClick();
           }}
         >
-          {isHovered ? '�� ابدأ الآن!' : 'ابدأ الاختبار'}
+          {isHovered ? '🚀 ابدأ الآن!' : 'ابدأ الاختبار'}
         </button>
       </div>
 

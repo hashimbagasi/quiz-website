@@ -105,57 +105,22 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
 
   if (isLoading) {
     return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        background: 'linear-gradient(135deg, #a4508b 0%, #f7666f 100%)'
-      }}>
-        <div style={{ textAlign: 'center', color: 'white' }}>
-          <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🧠</div>
-          <div style={{ fontSize: '1.5rem', fontWeight: 600 }}>جاري تحميل الاختبارات...</div>
-          <div style={{ 
-            width: '40px', 
-            height: '40px', 
-            border: '3px solid rgba(255,255,255,0.3)', 
-            borderTop: '3px solid white',
-            borderRadius: '50%',
-            animation: 'spin 1s linear infinite',
-            margin: '20px auto'
-          }}></div>
+      <div className="loading-screen">
+        <div className="loading-content">
+          <div className="loading-emoji">🧠</div>
+          <div className="loading-text">جاري تحميل الاختبارات...</div>
+          <div className="loading-spinner"></div>
         </div>
       </div>
     );
   }
 
   return (
-    <div style={{ 
-      backgroundColor: isDarkMode ? '#1a1a1a' : '#FAFAFA',
-      color: isDarkMode ? '#ffffff' : '#1A1A1A',
-      transition: 'all 0.3s ease'
-    }}>
+    <div className={`homepage-container ${isDarkMode ? 'dark' : 'light'}`}>
       {/* Dark Mode Toggle */}
       <button
         onClick={toggleDarkMode}
-        style={{
-          position: 'fixed',
-          top: '30px',
-          left: '30px',
-          width: '50px',
-          height: '50px',
-          borderRadius: '50%',
-          background: isDarkMode ? 'linear-gradient(135deg, #7209B7, #F72585)' : 'linear-gradient(135deg, #F72585, #7209B7)',
-          color: 'white',
-          border: 'none',
-          fontSize: '1.5rem',
-          cursor: 'pointer',
-          boxShadow: '0 4px 20px rgba(247,37,133,0.3)',
-          zIndex: 1000,
-          transition: 'all 0.3s ease'
-        }}
-        onMouseOver={e => e.currentTarget.style.transform = 'scale(1.1)'}
-        onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+        className={`dark-mode-toggle ${isDarkMode ? 'dark' : 'light'}`}
       >
         {isDarkMode ? '☀️' : '🌙'}
       </button>
@@ -164,148 +129,51 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          style={{
-            position: 'fixed',
-            bottom: '30px',
-            right: '30px',
-            width: '50px',
-            height: '50px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #F72585, #7209B7)',
-            color: 'white',
-            border: 'none',
-            fontSize: '1.5rem',
-            cursor: 'pointer',
-            boxShadow: '0 4px 20px rgba(247,37,133,0.3)',
-            zIndex: 1000,
-            transition: 'all 0.3s ease'
-          }}
-          onMouseOver={e => e.currentTarget.style.transform = 'scale(1.1)'}
-          onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+          className="scroll-top-btn"
         >
           ↑
         </button>
       )}
 
       {/* Custom Hero Title & Description */}
-      <section
-        style={{
-          background: 'linear-gradient(135deg, #a4508b 0%, #f7666f 100%)',
-          color: 'white',
-          padding: '48px 16px 32px 16px',
-          textAlign: 'center',
-          borderRadius: '0 0 32px 32px',
-          marginBottom: '32px',
-          boxShadow: '0 4px 24px rgba(114,9,183,0.08)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-        className="fade-in"
-      >
+      <section className="hero-section fade-in">
         {/* Animated background elements */}
-        <div style={{
-          position: 'absolute',
-          top: '10%',
-          left: '10%',
-          width: '60px',
-          height: '60px',
-          background: 'rgba(255,255,255,0.1)',
-          borderRadius: '50%',
-          animation: 'float 6s ease-in-out infinite'
-        }}></div>
-        <div style={{
-          position: 'absolute',
-          top: '20%',
-          right: '15%',
-          width: '40px',
-          height: '40px',
-          background: 'rgba(255,255,255,0.1)',
-          borderRadius: '50%',
-          animation: 'float 8s ease-in-out infinite reverse'
-        }}></div>
+        <div className="hero-background-element hero-background-element-1"></div>
+        <div className="hero-background-element hero-background-element-2"></div>
 
-        <h1
-          style={{
-            fontSize: '2.5rem',
-            fontWeight: 800,
-            marginBottom: '18px',
-            letterSpacing: '-1px',
-            lineHeight: 1.2,
-            textShadow: '0 2px 8px rgba(0,0,0,0.10)'
-          }}
-        >
-          <span role="img" aria-label="star">⭐</span> جاهز تتحدى نفسك؟ جرب اختباراتنا وخلك الأسطورة!
+        <h1 className="hero-title">
+          <span role="img" aria-label="star">⭐</span> تبغى تعرف مستواك؟ جرّب اختباراتنا وعيش التحدي!
         </h1>
-        <p
-          style={{
-            fontSize: '1.25rem',
-            maxWidth: 600,
-            margin: '0 auto',
-            background: 'rgba(255,255,255,0.10)',
-            borderRadius: '16px',
-            padding: '18px 20px',
-            fontWeight: 500,
-            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-            color: '#fff',
-            lineHeight: 1.7
-          }}
-        >
+        <p className="hero-description">
           اختبارات ترفيهية بتعابير ولهجاتنا، من اختبار الذكاء لاختبارات اللهجات.<br/>
           نتيجتك تقدر تشاركها مع أصحابك، وتضحك معهم على النتيجة 😄<br/>
           بسيطة، سريعة، ومجانية!
         </p>
         
         {/* Quick stats */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '40px',
-          marginTop: '30px',
-          flexWrap: 'wrap'
-        }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '2rem', fontWeight: 700 }}>{quizzes.length}</div>
-            <div style={{ fontSize: '0.9rem', opacity: 0.9 }}>اختبار</div>
+        <div className="hero-stats">
+          <div className="hero-stat-item">
+            <div className="hero-stat-number">{quizzes.length}</div>
+            <div className="hero-stat-label">اختبار</div>
           </div>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '2rem', fontWeight: 700 }}>{blogPosts.length}</div>
-            <div style={{ fontSize: '0.9rem', opacity: 0.9 }}>مقالة</div>
+          <div className="hero-stat-item">
+            <div className="hero-stat-number">{blogPosts.length}</div>
+            <div className="hero-stat-label">مقالة</div>
           </div>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '2rem', fontWeight: 700 }}>100%</div>
-            <div style={{ fontSize: '0.9rem', opacity: 0.9 }}>مجاني</div>
+          <div className="hero-stat-item">
+            <div className="hero-stat-number">100%</div>
+            <div className="hero-stat-label">مجاني</div>
           </div>
         </div>
 
         {/* Random Quiz Button */}
-        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+        <div className="hero-random-button">
           <button
             onClick={() => {
               const randomQuiz = quizzes[Math.floor(Math.random() * quizzes.length)];
               handleQuizClick(randomQuiz.id);
             }}
-            style={{
-              background: 'linear-gradient(135deg, #FF6B6B, #4ECDC4)',
-              color: 'white',
-              border: 'none',
-              padding: '16px 32px',
-              borderRadius: '32px',
-              fontSize: '1.2rem',
-              fontWeight: '700',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              boxShadow: '0 8px 25px rgba(255,107,107,0.3)',
-              position: 'relative',
-              overflow: 'hidden'
-            }}
-            onMouseOver={e => {
-              e.currentTarget.style.transform = 'scale(1.05) rotate(2deg)';
-              e.currentTarget.style.boxShadow = '0 12px 35px rgba(255,107,107,0.4)';
-            }}
-            onMouseOut={e => {
-              e.currentTarget.style.transform = 'scale(1) rotate(0deg)';
-              e.currentTarget.style.boxShadow = '0 8px 25px rgba(255,107,107,0.3)';
-            }}
+            className="random-quiz-btn"
           >
             🎲 اختبرني عشوائياً!
           </button>
@@ -486,47 +354,19 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
         </div>
 
         {/* All Quizzes Title */}
-        <h2 style={{ 
-          textAlign: 'center', 
-          marginBottom: '40px', 
-          color: isDarkMode ? '#ffffff' : '#1A1A1A',
-          fontSize: '2rem',
-          fontWeight: '600'
-        }}>
+        <h2 className={`all-quizzes-title ${isDarkMode ? 'dark' : 'light'}`}>
           جميع الاختبارات
         </h2>
 
         {/* New Quizzes Section */}
-        <div style={{ marginBottom: '40px' }}>
-          <h3 style={{ 
-            textAlign: 'center', 
-            marginBottom: '30px', 
-            color: isDarkMode ? '#ffffff' : '#1A1A1A',
-            fontSize: '1.5rem',
-            fontWeight: '600',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '10px'
-          }}>
-            <span style={{ 
-              background: 'linear-gradient(135deg, #00D4AA, #0099CC)',
-              color: 'white',
-              padding: '4px 12px',
-              borderRadius: '16px',
-              fontSize: '0.8rem',
-              fontWeight: '700'
-            }}>
+        <div className="new-quizzes-section">
+          <h3 className={`new-quizzes-title ${isDarkMode ? 'dark' : 'light'}`}>
+            <span className="new-badge">
               جديد
             </span>
             الاختبارات الجديدة
           </h3>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '20px',
-            marginBottom: '30px'
-          }}>
+          <div className="new-quizzes-grid">
             {quizzes
               .slice(0, 3)
               .map((quiz, index) => (

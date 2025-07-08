@@ -6,6 +6,8 @@
   margin-bottom: 24px;
   transition: box-shadow 0.2s;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 .quiz-card:hover {

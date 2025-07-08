@@ -7,11 +7,11 @@ const SupportButton: React.FC = () => {
       href="https://coff.ee/hashimbdev"
       target="_blank"
       rel="noopener noreferrer"
-      className="support-btn"
+      className="support-button optimized-button interactive-element hover-lift"
       title="ادعمني على كوفي"
     >
-      <span className="support-icon">☕</span>
-      <span>ادعمني</span>
+      <span className="coffee-icon">☕</span>
+      <span className="support-text">ادعمني</span>
     </a>
   );
 };
