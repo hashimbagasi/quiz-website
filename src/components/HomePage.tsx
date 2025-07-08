@@ -20,7 +20,6 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
   const [selectedCategory, setSelectedCategory] = useState('الكل');
   const [isLoading, setIsLoading] = useState(true);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [quizStats, setQuizStats] = useState<Record<string, QuizStats>>({});
   const [allComments, setAllComments] = useState<Comment[]>([]);
 
@@ -38,17 +37,6 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Dark mode effect
-  useEffect(() => {
-    if (isDarkMode) {
-      document.body.style.backgroundColor = '#1a1a1a';
-      document.body.style.color = '#ffffff';
-    } else {
-      document.body.style.backgroundColor = '#FAFAFA';
-      document.body.style.color = '#1A1A1A';
-    }
-  }, [isDarkMode]);
 
   useEffect(() => {
     // جلب جميع إحصائيات الاختبارات من Supabase
@@ -99,10 +87,6 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   if (isLoading) {
     return (
       <div className="loading-screen">
@@ -116,15 +100,7 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
   }
 
   return (
-    <div className={`homepage-container ${isDarkMode ? 'dark' : 'light'}`}>
-      {/* Dark Mode Toggle */}
-      <button
-        onClick={toggleDarkMode}
-        className={`dark-mode-toggle ${isDarkMode ? 'dark' : 'light'}`}
-      >
-        {isDarkMode ? '☀️' : '🌙'}
-      </button>
-
+    <div className="homepage-container">
       {/* Scroll to top button */}
       {showScrollTop && (
         <button
@@ -145,8 +121,8 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
           <span role="img" aria-label="star">⭐</span> تبغى تعرف مستواك؟ جرّب اختباراتنا وعيش التحدي!
         </h1>
         <p className="hero-description">
-          اختبارات ترفيهية بتعابير ولهجاتنا، من اختبار الذكاء لاختبارات اللهجات.<br/>
-          نتيجتك تقدر تشاركها مع أصحابك، وتضحك معهم على النتيجة 😄<br/>
+          اختبارات ترفيهية باللهجة السعودية وبأسلوب ممتع!<br/>
+          من اختبارات الذكاء إلى اللهجات، تقدر تشارك نتيجتك مع أصحابك وتضحكون عليها سوا 😄<br/>
           بسيطة، سريعة، ومجانية!
         </p>
         
@@ -233,7 +209,7 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
           <h3 style={{ 
             textAlign: 'center', 
             marginBottom: '30px', 
-            color: isDarkMode ? '#ffffff' : '#1A1A1A',
+            color: '#1A1A1A',
             fontSize: '1.5rem',
             fontWeight: '600'
           }}>
@@ -253,27 +229,23 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
                   key={quiz.id}
                   onClick={() => handleQuizClick(quiz.id)}
                   style={{
-                    background: isDarkMode ? '#2a2a2a' : 'white',
+                    background: 'white',
                     borderRadius: '20px',
                     padding: '32px',
-                    boxShadow: isDarkMode ? '0 8px 32px rgba(0,0,0,0.3)' : '0 8px 32px rgba(164,80,139,0.15)',
+                    boxShadow: '0 8px 32px rgba(164,80,139,0.15)',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    border: isDarkMode ? '1px solid #333' : '1px solid #f0f0f0',
+                    border: '1px solid #f0f0f0',
                     position: 'relative',
                     overflow: 'hidden'
                   }}
                   onMouseOver={e => {
                     e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
-                    e.currentTarget.style.boxShadow = isDarkMode 
-                      ? '0 16px 48px rgba(247,37,133,0.3)' 
-                      : '0 16px 48px rgba(247,37,133,0.25)';
+                    e.currentTarget.style.boxShadow = '0 16px 48px rgba(247,37,133,0.25)';
                   }}
                   onMouseOut={e => {
                     e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.boxShadow = isDarkMode 
-                      ? '0 8px 32px rgba(0,0,0,0.3)' 
-                      : '0 8px 32px rgba(164,80,139,0.15)';
+                    e.currentTarget.style.boxShadow = '0 8px 32px rgba(164,80,139,0.15)';
                   }}
                 >
                   {/* Featured Badge */}
@@ -298,12 +270,12 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
                       fontSize: '1.6rem',
                       fontWeight: '700',
                       marginBottom: '12px',
-                      color: isDarkMode ? '#ffffff' : '#1A1A1A'
+                      color: '#1A1A1A'
                     }}>
                       {quiz.title}
                     </h4>
                     <p style={{
-                      color: isDarkMode ? '#cccccc' : '#666',
+                      color: '#666',
                       marginBottom: '20px',
                       lineHeight: 1.6
                     }}>
@@ -354,13 +326,13 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
         </div>
 
         {/* All Quizzes Title */}
-        <h2 className={`all-quizzes-title ${isDarkMode ? 'dark' : 'light'}`}>
+        <h2 className="all-quizzes-title">
           جميع الاختبارات
         </h2>
 
         {/* New Quizzes Section */}
         <div className="new-quizzes-section">
-          <h3 className={`new-quizzes-title ${isDarkMode ? 'dark' : 'light'}`}>
+          <h3 className="new-quizzes-title">
             <span className="new-badge">
               جديد
             </span>
@@ -374,28 +346,24 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
                   key={quiz.id}
                   onClick={() => handleQuizClick(quiz.id)}
                   style={{
-                    background: isDarkMode ? '#2a2a2a' : 'white',
+                    background: 'white',
                     borderRadius: '16px',
                     padding: '24px',
-                    boxShadow: isDarkMode ? '0 4px 20px rgba(0,0,0,0.3)' : '0 4px 20px rgba(0,212,170,0.15)',
+                    boxShadow: '0 4px 20px rgba(0,212,170,0.15)',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    border: isDarkMode ? '1px solid #333' : '1px solid #f0f0f0',
+                    border: '1px solid #f0f0f0',
                     position: 'relative',
                     overflow: 'hidden',
                     animation: `slideInFromBottom 0.6s ease-out ${index * 0.1}s both`
                   }}
                   onMouseOver={e => {
                     e.currentTarget.style.transform = 'translateY(-6px) scale(1.02)';
-                    e.currentTarget.style.boxShadow = isDarkMode 
-                      ? '0 12px 32px rgba(0,212,170,0.3)' 
-                      : '0 12px 32px rgba(0,212,170,0.25)';
+                    e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,212,170,0.25)';
                   }}
                   onMouseOut={e => {
                     e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.boxShadow = isDarkMode 
-                      ? '0 4px 20px rgba(0,0,0,0.3)' 
-                      : '0 4px 20px rgba(0,212,170,0.15)';
+                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,212,170,0.15)';
                   }}
                 >
                   {/* New Badge */}
@@ -426,12 +394,12 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
                       fontSize: '1.3rem',
                       fontWeight: '700',
                       marginBottom: '8px',
-                      color: isDarkMode ? '#ffffff' : '#1A1A1A'
+                      color: '#1A1A1A'
                     }}>
                       {quiz.title}
                     </h4>
                     <p style={{
-                      color: isDarkMode ? '#cccccc' : '#666',
+                      color: '#666',
                       marginBottom: '16px',
                       lineHeight: 1.5,
                       fontSize: '0.9rem'
@@ -479,7 +447,7 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
           <h3 style={{ 
             textAlign: 'center', 
             marginBottom: '30px', 
-            color: isDarkMode ? '#ffffff' : '#1A1A1A',
+            color: '#1A1A1A',
             fontSize: '1.5rem',
             fontWeight: '600'
           }}>
@@ -502,13 +470,13 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
                 key={category.name}
                 onClick={() => setSelectedCategory(category.name)}
                 style={{
-                  background: isDarkMode ? '#2a2a2a' : 'white',
+                  background: 'white',
                   borderRadius: '16px',
                   padding: '24px',
-                  boxShadow: isDarkMode ? '0 4px 20px rgba(0,0,0,0.3)' : '0 4px 20px rgba(0,0,0,0.1)',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
-                  border: isDarkMode ? '1px solid #333' : '1px solid #f0f0f0',
+                  border: '1px solid #f0f0f0',
                   textAlign: 'center',
                   position: 'relative',
                   overflow: 'hidden',
@@ -520,9 +488,7 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
                 }}
                 onMouseOut={e => {
                   e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                  e.currentTarget.style.boxShadow = isDarkMode 
-                    ? '0 4px 20px rgba(0,0,0,0.3)' 
-                    : '0 4px 20px rgba(0,0,0,0.1)';
+                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
                 }}
               >
                 <div style={{ 
@@ -536,7 +502,7 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
                   fontSize: '1.2rem',
                   fontWeight: '700',
                   marginBottom: '8px',
-                  color: isDarkMode ? '#ffffff' : '#1A1A1A'
+                  color: '#1A1A1A'
                 }}>
                   {category.name}
                 </h4>
@@ -562,16 +528,15 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
           onSearchChange={setSearchQuery}
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
-          isDarkMode={isDarkMode}
         />
         {filteredQuizzes.length === 0 ? (
           <div style={{ 
             textAlign: 'center', 
             padding: '60px 20px',
-            color: isDarkMode ? '#cccccc' : '#666'
+            color: '#666'
           }}>
             <div style={{ fontSize: '4rem', marginBottom: '20px' }}>🔍</div>
-            <h3 style={{ marginBottom: '10px', color: isDarkMode ? '#ffffff' : '#1A1A1A' }}>لم نجد اختبارات</h3>
+            <h3 style={{ marginBottom: '10px', color: '#1A1A1A' }}>لم نجد اختبارات</h3>
             <p>جرب البحث بكلمات مختلفة أو اختر فئة أخرى</p>
           </div>
         ) : (
@@ -593,7 +558,7 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
             <h3 style={{ 
               textAlign: 'center', 
               marginBottom: '30px', 
-              color: isDarkMode ? '#ffffff' : '#1A1A1A',
+              color: '#1A1A1A',
               fontSize: '1.5rem',
               fontWeight: '600'
             }}>
@@ -612,28 +577,24 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
                     key={quiz.id}
                     onClick={() => handleQuizClick(quiz.id)}
                     style={{
-                      background: isDarkMode ? '#2a2a2a' : 'white',
+                      background: 'white',
                       borderRadius: '16px',
                       padding: '24px',
-                      boxShadow: isDarkMode ? '0 4px 20px rgba(0,0,0,0.3)' : '0 4px 20px rgba(164,80,139,0.1)',
+                      boxShadow: '0 4px 20px rgba(164,80,139,0.1)',
                       cursor: 'pointer',
                       transition: 'all 0.3s ease',
-                      border: isDarkMode ? '1px solid #333' : '1px solid #f0f0f0',
+                      border: '1px solid #f0f0f0',
                       position: 'relative',
                       overflow: 'hidden',
                       animation: `slideInFromBottom 0.6s ease-out ${index * 0.1}s both`
                     }}
                     onMouseOver={e => {
                       e.currentTarget.style.transform = 'translateY(-6px) scale(1.02)';
-                      e.currentTarget.style.boxShadow = isDarkMode 
-                        ? '0 12px 32px rgba(164,80,139,0.3)' 
-                        : '0 12px 32px rgba(164,80,139,0.2)';
+                      e.currentTarget.style.boxShadow = '0 12px 32px rgba(164,80,139,0.2)';
                     }}
                     onMouseOut={e => {
                       e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                      e.currentTarget.style.boxShadow = isDarkMode 
-                        ? '0 4px 20px rgba(0,0,0,0.3)' 
-                        : '0 4px 20px rgba(164,80,139,0.1)';
+                      e.currentTarget.style.boxShadow = '0 4px 20px rgba(164,80,139,0.1)';
                     }}
                   >
                     {/* Suggested Badge */}
@@ -664,12 +625,12 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
                         fontSize: '1.3rem',
                         fontWeight: '700',
                         marginBottom: '8px',
-                        color: isDarkMode ? '#ffffff' : '#1A1A1A'
+                        color: '#1A1A1A'
                       }}>
                         {quiz.title}
                       </h4>
                       <p style={{
-                        color: isDarkMode ? '#cccccc' : '#666',
+                        color: '#666',
                         marginBottom: '16px',
                         lineHeight: 1.5,
                         fontSize: '0.9rem'
@@ -719,7 +680,7 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
         <h2 style={{ 
           textAlign: 'center', 
           marginBottom: '40px', 
-          color: isDarkMode ? '#ffffff' : '#1A1A1A',
+          color: '#1A1A1A',
           fontSize: '2rem',
           fontWeight: '600'
         }}>
@@ -733,39 +694,35 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
         }}>
           {blogPosts.slice(0, 3).map((post: BlogPost) => (
             <div key={post.id} style={{
-              background: isDarkMode ? '#2a2a2a' : '#fff',
+              background: 'white',
               borderRadius: '16px',
-              boxShadow: isDarkMode ? '0 4px 20px rgba(0,0,0,0.3)' : '0 2px 12px rgba(164,80,139,0.08)',
+              boxShadow: '0 2px 12px rgba(164,80,139,0.08)',
               padding: '28px 24px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
               minHeight: '220px',
               transition: 'transform 0.2s, box-shadow 0.2s',
-              border: isDarkMode ? '1px solid #333' : '1px solid #f0f0f0'
+              border: '1px solid #f0f0f0'
             }}
             onMouseOver={e => {
               e.currentTarget.style.transform = 'translateY(-8px)';
-              e.currentTarget.style.boxShadow = isDarkMode 
-                ? '0 12px 32px rgba(0,0,0,0.4)' 
-                : '0 8px 24px rgba(164,80,139,0.15)';
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(164,80,139,0.15)';
             }}
             onMouseOut={e => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = isDarkMode 
-                ? '0 4px 20px rgba(0,0,0,0.3)' 
-                : '0 2px 12px rgba(164,80,139,0.08)';
+              e.currentTarget.style.boxShadow = '0 2px 12px rgba(164,80,139,0.08)';
             }}
             >
               <div>
                 <div style={{ color: '#F72585', fontWeight: 700, fontSize: '1.1rem', marginBottom: 8 }}>{post.category}</div>
-                <a href={`/blog/${post.id}`} style={{ textDecoration: 'none', color: isDarkMode ? '#ffffff' : '#1A1A1A' }}>
+                <a href={`/blog/${post.id}`} style={{ textDecoration: 'none', color: '#1A1A1A' }}>
                   <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: 10, lineHeight: 1.4 }}>{post.title}</h3>
                 </a>
-                <div style={{ color: isDarkMode ? '#aaaaaa' : '#888', fontSize: '0.9rem', marginBottom: 10 }}>
+                <div style={{ color: '#888', fontSize: '0.9rem', marginBottom: 10 }}>
                   {new Date(post.date).toLocaleDateString('ar-SA')} • {post.readTime}
                 </div>
-                <div style={{ color: isDarkMode ? '#cccccc' : '#666', fontSize: '1rem', marginBottom: 12 }}>{post.excerpt}</div>
+                <div style={{ color: '#666', fontSize: '1rem', marginBottom: 12 }}>{post.excerpt}</div>
               </div>
               <a href={`/blog/${post.id}`} style={{
                 background: 'linear-gradient(135deg, #F72585, #7209B7)',
@@ -805,16 +762,16 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
 
       {/* Features Section */}
       <section style={{ 
-        background: isDarkMode ? '#2a2a2a' : 'white', 
+        background: 'white', 
         padding: '80px 20px',
         marginTop: '60px',
-        borderTop: isDarkMode ? '1px solid #333' : '1px solid #f0f0f0'
+        borderTop: '1px solid #f0f0f0'
       }}>
         <div className="container">
           <h2 style={{ 
             textAlign: 'center', 
             marginBottom: '60px', 
-            color: isDarkMode ? '#ffffff' : '#1A1A1A',
+            color: '#1A1A1A',
             fontSize: '2rem',
             fontWeight: '600'
           }}>
@@ -828,26 +785,26 @@ const HomePage: React.FC<HomePageProps> = ({ quizzes }) => {
           }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🎯</div>
-              <h3 style={{ marginBottom: '15px', color: isDarkMode ? '#ffffff' : '#1A1A1A' }}>اختبارات متنوعة</h3>
-              <p style={{ color: isDarkMode ? '#cccccc' : '#666' }}>لهجات، ذكاء، معلومات عامة، وتحليل شخصية</p>
+              <h3 style={{ marginBottom: '15px', color: '#1A1A1A' }}>اختبارات متنوعة</h3>
+              <p style={{ color: '#666' }}>لهجات، ذكاء، معلومات عامة، وتحليل شخصية</p>
             </div>
             
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '3rem', marginBottom: '20px' }}>📱</div>
-              <h3 style={{ marginBottom: '15px', color: isDarkMode ? '#ffffff' : '#1A1A1A' }}>متجاوب بالكامل</h3>
-              <p style={{ color: isDarkMode ? '#cccccc' : '#666' }}>يعمل بشكل مثالي على جميع الأجهزة</p>
+              <h3 style={{ marginBottom: '15px', color: '#1A1A1A' }}>متجاوب بالكامل</h3>
+              <p style={{ color: '#666' }}>يعمل بشكل مثالي على جميع الأجهزة</p>
             </div>
             
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🚀</div>
-              <h3 style={{ marginBottom: '15px', color: isDarkMode ? '#ffffff' : '#1A1A1A' }}>سريع وسهل</h3>
-              <p style={{ color: isDarkMode ? '#cccccc' : '#666' }}>ابدأ الاختبار فوراً بدون تسجيل دخول</p>
+              <h3 style={{ marginBottom: '15px', color: '#1A1A1A' }}>سريع وسهل</h3>
+              <p style={{ color: '#666' }}>ابدأ الاختبار فوراً بدون تسجيل دخول</p>
             </div>
             
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '3rem', marginBottom: '20px' }}>📤</div>
-              <h3 style={{ marginBottom: '15px', color: isDarkMode ? '#ffffff' : '#1A1A1A' }}>شارك النتائج</h3>
-              <p style={{ color: isDarkMode ? '#cccccc' : '#666' }}>شارك نتائجك مع أصدقائك بسهولة</p>
+              <h3 style={{ marginBottom: '15px', color: '#1A1A1A' }}>شارك النتائج</h3>
+              <p style={{ color: '#666' }}>شارك نتائجك مع أصدقائك بسهولة</p>
             </div>
           </div>
         </div>

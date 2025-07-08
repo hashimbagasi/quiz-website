@@ -18,28 +18,39 @@
 .header-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   padding: 0 32px;
   min-height: 80px;
+  direction: rtl;
 }
 
 .header-flex {
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  gap: 32px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 0;
+  direction: rtl;
 }
 
+/* الشعار في المنتصف دائماً */
+.logo-img {
+  flex-shrink: 0;
+  height: 48px;
+  display: block;
+}
+
+/* زر الدعم في أقصى اليسار (يسار RTL) */
 .support-btn {
   flex-shrink: 0;
-  background: linear-gradient(135deg, #FFD700 0%, #F72585 100%);
+  background: linear-gradient(90deg, #FF9800 0%, #F72585 100%);
   color: #fff;
   border-radius: 24px;
-  padding: 8px 20px;
+  padding: 10px 28px;
   font-size: 1rem;
   font-weight: 700;
   box-shadow: 0 2px 8px rgba(247,37,133,0.10);
@@ -50,19 +61,11 @@
   transition: all 0.3s;
   cursor: pointer;
   border: none;
-  height: 40px;
-  margin-left: 16px;
+  height: 44px;
 }
 .support-btn:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.08);
   box-shadow: 0 4px 16px #F7258540;
-}
-
-.logo-img {
-  flex-shrink: 0;
-  height: 48px;
-  display: block;
-  margin: 0 0 0 32px;
 }
 
 .link-no-decoration {
@@ -76,18 +79,24 @@
   font-size: 1.2rem;
 }
 
+/* روابط الناف بار في المنتصف */
 .navbar-links {
-  flex: 1;
-  display: flex;
+  display: flex !important;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
-  gap: 32px;
+  justify-content: center;
+  gap: 24px;
   list-style: none;
   margin: 0;
   padding: 0;
-  direction: ltr;
-  text-align: initial;
+  direction: rtl;
+  text-align: right;
+  flex: 1;
+}
+
+/* إصلاح ظهور الناف بار العادي على الشاشات الكبيرة */
+.navbar-links {
+  display: flex !important;
 }
 
 @media (max-width: 900px) {
@@ -101,12 +110,14 @@
     flex-direction: column !important;
     gap: 12px !important;
     align-items: stretch !important;
+    justify-content: flex-start !important;
   }
   .logo-img {
     font-size: 1.1rem !important;
     max-width: 100px !important;
     text-align: center !important;
-    margin: 0 !important;
+    margin: 0 auto 8px auto !important;
+    display: block !important;
   }
   .navbar-links {
     flex-direction: column !important;
@@ -114,10 +125,23 @@
     align-items: center !important;
     margin: 0 !important;
     direction: rtl !important;
+    text-align: right !important;
+    justify-content: flex-start !important;
   }
   .support-btn {
-    align-self: center !important;
-    margin: 0 0 8px 0 !important;
+    align-self: stretch !important;
+    margin: 8px 0 0 0 !important;
+    width: 100%;
+    justify-content: center;
+  }
+  .navbar-links {
+    display: none !important;
+  }
+  .hamburger {
+    display: flex !important;
+  }
+  .mobile-menu-overlay {
+    display: flex !important;
   }
 }
 
@@ -126,7 +150,7 @@
   text-decoration: none !important;
   font-weight: 500 !important;
   font-size: 1.1rem !important;
-  padding: 4px 12px !important;
+  padding: 8px 20px !important;
   border-radius: 20px !important;
   background: transparent !important;
   transition: all 0.2s !important;
@@ -134,12 +158,17 @@
   border: none !important;
   cursor: pointer !important;
   font-family: inherit !important;
+  box-sizing: border-box;
+  direction: rtl;
+  text-align: right;
 }
 
+/* زر الرئيسية مميز */
 .navbar-link--active {
-  color: #F72585 !important;
+  color: #EC4899 !important;
   font-weight: 700 !important;
-  background: rgba(247,37,133,0.08) !important;
+  background: #fde4f6 !important;
+  box-shadow: none !important;
 }
 
 button.navbar-link {
@@ -166,4 +195,60 @@ button.navbar-link {
   color: #888;
   font-size: 1rem;
   margin-top: 30px;
+}
+
+/* زر الهامبورقر (hamburger) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1200;
+  padding: 0;
+  margin-right: 8px;
+}
+.hamburger span {
+  display: block;
+  width: 28px;
+  height: 4px;
+  background: #F72585;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* قائمة الموبايل الجانبية */
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(250,250,250,0.98);
+  z-index: 2000;
+  box-shadow: -2px 0 24px rgba(114,9,183,0.08);
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  animation: fadeIn 0.3s;
+}
+
+@media (max-width: 900px) {
+  .hamburger {
+    display: flex !important;
+  }
+  .navbar-links {
+    display: none !important;
+  }
+  .mobile-menu-overlay {
+    display: flex !important;
+  }
 } 

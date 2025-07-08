@@ -47,35 +47,6 @@
   margin: 20px auto;
 }
 
-/* Dark mode toggle button */
-.dark-mode-toggle {
-  position: fixed;
-  top: 30px;
-  left: 30px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  color: white;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(247,37,133,0.3);
-  z-index: 1000;
-  transition: all 0.3s ease;
-}
-
-.dark-mode-toggle:hover {
-  transform: scale(1.1);
-}
-
-.dark-mode-toggle.light {
-  background: linear-gradient(135deg, #F72585, #7209B7);
-}
-
-.dark-mode-toggle.dark {
-  background: linear-gradient(135deg, #7209B7, #F72585);
-}
-
 /* Scroll to top button */
 .scroll-top-btn {
   position: fixed;
@@ -107,11 +78,6 @@
   background-color: #FAFAFA;
   color: #1A1A1A;
 }
-
-.homepage-container.dark {
-  background-color: #1a1a1a;
-  color: #ffffff;
-} 
 
 /* Hero section styles */
 .hero-section {

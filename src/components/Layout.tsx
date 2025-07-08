@@ -90,38 +90,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <span className="coffee-icon">☕</span>
               <span>ادعمني</span>
             </a>
-            {/* الشعار */}
-            <Link to="/" className="link-no-decoration optimized-image">
-              <img src="/quizksa-logo.svg" alt="QuizKSA Logo" className="logo-img" />
-            </Link>
-            {/* القائمة */}
+            {/* قائمة الروابط */}
             <nav className="optimized-nav">
               <ul className="navbar-links optimized-list">
-                <li>
-                  <Link
-                    className={`navbar-link optimized-nav-link${isActive('/blog') ? ' navbar-link--active' : ''}`}
-                    to="/blog"
-                  >
-                    المدونة
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className={`navbar-link optimized-nav-link${isActive('/#quizzes') ? ' navbar-link--active' : ''}`}
-                    to="/#quizzes"
-                    onClick={handleQuizzesClick}
-                  >
-                    الاختبارات
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className={`navbar-link optimized-nav-link${isActive('/about') ? ' navbar-link--active' : ''}`}
-                    to="/about"
-                  >
-                    عن الموقع
-                  </Link>
-                </li>
                 <li>
                   <Link
                     className={`navbar-link optimized-nav-link${isActive('/') ? ' navbar-link--active' : ''}`}
@@ -136,8 +107,37 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     الرئيسية
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    className={`navbar-link optimized-nav-link${isActive('/about') ? ' navbar-link--active' : ''}`}
+                    to="/about"
+                  >
+                    عن الموقع
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className={`navbar-link optimized-nav-link${isActive('/#quizzes') ? ' navbar-link--active' : ''}`}
+                    to="/#quizzes"
+                    onClick={handleQuizzesClick}
+                  >
+                    الاختبارات
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className={`navbar-link optimized-nav-link${isActive('/blog') ? ' navbar-link--active' : ''}`}
+                    to="/blog"
+                  >
+                    المدونة
+                  </Link>
+                </li>
               </ul>
             </nav>
+            {/* الشعار */}
+            <Link to="/" className="link-no-decoration optimized-image">
+              <img src="/quizksa-logo.svg" alt="QuizKSA Logo" className="logo-img" />
+            </Link>
             {/* زر الهامبرجر يظهر فقط في الشاشات الصغيرة */}
             <button className="hamburger optimized-button interactive-element" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
               <span></span>

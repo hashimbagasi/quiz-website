@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Quiz, getSimilarQuizzes, getHejaziResultMessage, getNajdiResultMessage } from '../data/quizzes';
+import { Quiz, getSimilarQuizzes, getHejaziResultMessage, getNajdiResultMessage, getQahtaniResultMessage, getSouthernResultMessage, getQassimiResultMessage } from '../data/quizzes';
 import QuizCard from './QuizCard';
 import CommentsSection from './CommentsSection';
 import { CommentService } from '../services/commentService';
@@ -220,6 +220,14 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
   };
 
   const getResultMessage = (results: any) => {
+    // نتيجة مخصصة لاختبار القحطانية
+    if (quiz && quiz.id === 'qahtani-dialect-quiz' && results.type === 'score') {
+      return getQahtaniResultMessage(results.score);
+    }
+    // نتيجة مخصصة لاختبار اللهجة الجنوبية
+    if (quiz && quiz.id === 'southern-dialect-quiz' && results.type === 'score') {
+      return getSouthernResultMessage(results.score);
+    }
     if (results.type === 'personality') {
       // تحليل الـ 16 نوع شخصية MBTI
       const mbtiAnalysis: Record<string, any> = {
@@ -561,6 +569,10 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
       customResult = getHejaziResultMessage(results.score);
     } else if (quiz.id === 'najdi-dialect-quiz') {
       customResult = getNajdiResultMessage(results.score);
+    } else if (quiz.id === 'southern-dialect-quiz') {
+      customResult = getSouthernResultMessage(results.score);
+    } else if (quiz.id === 'qassimi-dialect-quiz') {
+      customResult = getQassimiResultMessage(results.score);
     }
 
     // استخراج الأسئلة التي أخطأ فيها المستخدم
@@ -819,11 +831,20 @@ const QuizPage: React.FC<QuizPageProps> = ({ quizzes }) => {
                   </div>
                 )}
                 
-                <div 
-                  className="result-message" 
-                  dangerouslySetInnerHTML={{ __html: resultMessage }}
-                  style={{ textAlign: 'right' }}
-                />
+                {/* عرض النتيجة */}
+                {quiz && quiz.id === 'qahtani-dialect-quiz' && typeof resultMessage === 'object' && resultMessage !== null ? (
+                  <div className="result-message" style={{ textAlign: 'center', margin: '32px 0' }}>
+                    <div style={{ fontSize: '3rem', marginBottom: 12 }}>{resultMessage.emoji}</div>
+                    <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#F72585', marginBottom: 10 }}>{resultMessage.title}</div>
+                    <div style={{ fontSize: '1.1rem', color: '#333', marginBottom: 8 }}>{resultMessage.message}</div>
+                  </div>
+                ) : typeof resultMessage === 'string' ? (
+                  <div 
+                    className="result-message" 
+                    dangerouslySetInnerHTML={{ __html: resultMessage }}
+                    style={{ textAlign: 'right' }}
+                  />
+                ) : null}
               </>
             )}
             {/* عرض الأسئلة التي أخطأ فيها المستخدم */}

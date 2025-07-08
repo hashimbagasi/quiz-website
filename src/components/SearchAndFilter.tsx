@@ -6,7 +6,6 @@ interface SearchAndFilterProps {
   onSearchChange: (query: string) => void;
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
-  isDarkMode?: boolean;
 }
 
 const categories = ['الكل', 'لهجات', 'ذكاء', 'معلومات عامة', 'تحليل شخصية'];
@@ -16,7 +15,6 @@ const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   onSearchChange,
   selectedCategory,
   onCategoryChange,
-  isDarkMode = false
 }) => {
   const getCategoryIcon = (category: string) => {
     switch (category) {

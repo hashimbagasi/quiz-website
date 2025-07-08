@@ -33,25 +33,6 @@
   color: #666;
 }
 
-/* Dark mode styles for search input */
-.search-input.dark-mode {
-  background: #1a1a1a !important;
-  color: #ffffff !important;
-  border-color: #444 !important;
-}
-
-/* Dark mode styles for category buttons */
-.category-btn.dark-mode {
-  background: #2a2a2a !important;
-  color: #cccccc !important;
-  border-color: #444 !important;
-}
-
-.category-btn.dark-mode:hover {
-  background: #F72585 !important;
-  color: white !important;
-}
-
 /* Active category button styles */
 .category-btn.active {
   background: linear-gradient(135deg, #F72585, #7209B7) !important;
